@@ -1102,6 +1102,9 @@ function showResults() {
     // 섹션 전환
     document.getElementById('surveySection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
+    
+    // 최상단으로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 등급 진행상황 시각화 업데이트
@@ -1142,29 +1145,224 @@ function restartSurvey() {
     // 섹션 전환
     document.getElementById('surveySection').style.display = 'block';
     document.getElementById('resultsSection').style.display = 'none';
+    
+    // 최상단으로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 결과 공유
 function shareResults() {
-    const score = document.getElementById('finalScore').textContent;
-    const grade = document.getElementById('finalGrade').textContent;
-    const shareText = `시장 독점 진단 결과: ${score}점 (${grade})\n\n당신의 사업 경쟁력을 확인해보세요!`;
+    const scoreElement = document.getElementById('finalScore');
+    const gradeElement = document.getElementById('finalGrade');
     
-    if (navigator.share) {
+    if (!scoreElement || !gradeElement) {
+        alert('먼저 설문을 완료해주세요.');
+        return;
+    }
+    
+    const score = scoreElement.textContent.trim();
+    const grade = gradeElement.textContent.trim();
+    
+    if (!score || score === '-' || !grade) {
+        alert('먼저 설문을 완료해주세요.');
+        return;
+    }
+    
+    const shareText = `시장 독점 진단 결과: ${score}점 (${grade})\n\n당신의 사업 경쟁력을 확인해보세요!\n${window.location.href}`;
+    
+    // 모바일 환경에서 Web Share API 우선 시도
+    if (navigator.share && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         navigator.share({
             title: '시장 독점 진단 결과',
             text: shareText,
             url: window.location.href
+        }).catch((error) => {
+            console.log('Share failed:', error);
+            fallbackCopyTextToClipboard(shareText);
         });
-    } else {
-        // 클립보드에 복사
-        navigator.clipboard.writeText(`${shareText}\n${window.location.href}`).then(() => {
+    } else if (navigator.clipboard && window.isSecureContext) {
+        // HTTPS 환경에서 클립보드 API 사용
+        navigator.clipboard.writeText(shareText).then(() => {
             alert('결과가 클립보드에 복사되었습니다!');
         }).catch(() => {
-            console.log('공유 실패:', {});
+            fallbackCopyTextToClipboard(shareText);
         });
+    } else {
+        // 폴백 방식
+        fallbackCopyTextToClipboard(shareText);
     }
 }
+
+// 폴백 클립보드 복사
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (successful) {
+            alert('결과가 클립보드에 복사되었습니다!');
+        } else {
+            showShareModal(text);
+        }
+    } catch (err) {
+        document.body.removeChild(textArea);
+        showShareModal(text);
+    }
+}
+
+// 공유 모달 표시
+function showShareModal(text) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 20px;
+        box-sizing: border-box;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        ">
+            <h3 style="margin: 0 0 15px 0; color: #333; font-size: 18px;">결과 공유하기</h3>
+            <textarea readonly style="
+                width: 100%;
+                height: 120px;
+                padding: 12px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 14px;
+                resize: none;
+                font-family: inherit;
+                line-height: 1.4;
+                box-sizing: border-box;
+            ">${text}</textarea>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="this.closest('div').parentElement.remove()" style="
+                    padding: 12px 24px;
+                    background: #7C3AED;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: background 0.2s;
+                " onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#7C3AED'">닫기</button>
+            </div>
+            <p style="font-size: 12px; color: #64748b; margin: 15px 0 0 0; text-align: center; line-height: 1.4;">
+                위 텍스트를 복사해서 SNS나 메신저로 공유해보세요.
+            </p>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // 배경 클릭시 닫기
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+    
+    // 텍스트 영역 클릭시 전체 선택
+    const textarea = modal.querySelector('textarea');
+    textarea.addEventListener('click', () => {
+        textarea.select();
+    });
+}
+
+// iframe 높이 자동 조정 (웹플로우 iframe 연동용)
+function adjustIframeHeight() {
+    if (window.parent && window.parent !== window) {
+        try {
+            const height = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            
+            // 추가 여백을 포함한 높이 계산
+            const adjustedHeight = height + 100;
+            
+            // 부모 window에 높이 정보 전송
+            window.parent.postMessage({
+                type: 'iframe-height',
+                height: adjustedHeight
+            }, '*');
+            
+            // 모바일 환경 추가 조정
+            if (window.innerWidth <= 768) {
+                window.parent.postMessage({
+                    type: 'iframe-height',
+                    height: adjustedHeight + 200
+                }, '*');
+            }
+        } catch (e) {
+            console.log('iframe height adjustment failed:', e);
+        }
+    }
+}
+
+// 페이지 로드 및 크기 변경 시 높이 조정
+document.addEventListener('DOMContentLoaded', adjustIframeHeight);
+window.addEventListener('resize', adjustIframeHeight);
+
+// MutationObserver로 DOM 변경 감지하여 높이 조정
+const observer = new MutationObserver(() => {
+    setTimeout(adjustIframeHeight, 100);
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true
+});
+
+// 업종 선택, 결과 표시, 재시작 시 높이 조정 트리거
+const originalSelectIndustry = selectIndustry;
+const originalShowResults = showResults;
+const originalRestartSurvey = restartSurvey;
+
+selectIndustry = function(...args) {
+    originalSelectIndustry.apply(this, args);
+    setTimeout(adjustIframeHeight, 300);
+};
+
+showResults = function(...args) {
+    const result = originalShowResults.apply(this, args);
+    setTimeout(adjustIframeHeight, 300);
+    return result;
+};
+
+restartSurvey = function(...args) {
+    const result = originalRestartSurvey.apply(this, args);
+    setTimeout(adjustIframeHeight, 300);
+    return result;
+};
 
 // 결과 다운로드
 function downloadResults() {
