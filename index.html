@@ -1634,41 +1634,41 @@ const detailedGradeInfo = {
                 if (selectedIndustry === 'fb') {
                     if (question.question.includes('고객') && question.question.includes('정의')) {
                         improvements.push('타겟 고객을 구체적으로 정의하고 세분화해야 합니다');
-                        strategies.push('고객의 상황과 고민을 중심으로 페르소나를 재설계하세요');
+                        strategies.push('고객의 상황과 니즈를 중심으로 페르소나를 재설계 해보세요');
                     }
                     if (question.question.includes('차별화') || question.question.includes('시그니처')) {
                         improvements.push('경쟁업체와 구별되는 독특한 메뉴나 서비스가 필요합니다');
-                        strategies.push('지역 특성과 고객 니즈를 반영한 시그니처 메뉴를 개발하세요');
+                        strategies.push('지역/상권 특성과 고객 니즈를 반영한 시그니처 메뉴를 개발해 보세요');
                     }
                     if (question.question.includes('재방문') || question.question.includes('단골')) {
                         improvements.push('고객 재방문을 유도하는 특별한 이유를 만들어야 합니다');
-                        strategies.push('개인별 선호도 기반 맞춤 서비스와 리워드 프로그램을 구축하세요');
+                        strategies.push('고객 선호도를 기반으로 맞춤 서비스와 리워드 프로그램을 구축해 보세요');
                     }
                 } else if (selectedIndustry === 'medical') {
                     if (question.question.includes('포지셔닝') || question.question.includes('전문')) {
                         improvements.push('병원의 전문 분야를 명확히 하고 브랜딩해야 합니다');
-                        strategies.push('특정 질환이나 연령대에 특화된 전문 클리닉으로 포지셔닝하세요');
+                        strategies.push('특정 질병/질환이나 연령대에 특화된 전문 병원으로의 포지셔닝을 고민해 보세요');
                     }
                     if (question.question.includes('진료') && question.question.includes('맞춤')) {
                         improvements.push('환자별 맞춤형 진료 프로세스가 필요합니다');
-                        strategies.push('사전 문진과 검사를 통한 개인별 치료 계획을 수립하세요');
+                        strategies.push('사전 문진과 검사를 통한 개인별 치료 계획을 수립하고 환자와 공유해 보세요');
                     }
                     if (question.question.includes('사후관리') || question.question.includes('예방')) {
                         improvements.push('치료 후 지속적인 관리 시스템이 필요합니다');
-                        strategies.push('단계별 사후관리 프로그램과 예방 솔루션을 제공하세요');
+                        strategies.push('단계별 사후관리 프로그램과 예방 솔루션을 제공해 보세요');
                     }
                 } else if (selectedIndustry === 'fitness') {
                     if (question.question.includes('타겟') || question.question.includes('고객')) {
                         improvements.push('명확한 타겟 고객 정의와 맞춤형 서비스 설계가 필요합니다');
-                        strategies.push('특정 고민을 가진 고객군을 타겟으로 전문화된 프로그램을 개발하세요');
+                        strategies.push('특정 고민을 가진 고객군을 타겟으로 전문화된 프로그램을 개발해 보세요');
                     }
                     if (question.question.includes('차별화') || question.question.includes('독특')) {
-                        improvements.push('다른 센터와 구별되는 독특한 운동 프로그램이 필요합니다');
-                        strategies.push('특정 문제 해결에 특화된 전문 프로그램을 개발하세요');
+                        improvements.push('다른 센터와 구별되는 특별한 운동 프로그램이 필요합니다');
+                        strategies.push('특정 문제 해결에 특화된 전문 프로그램을 개발해 보세요');
                     }
                     if (question.question.includes('진단') || question.question.includes('측정')) {
                         improvements.push('체계적인 신체 진단과 상태 분석 프로세스가 필요합니다');
-                        strategies.push('과학적 측정과 분석을 통한 개인별 운동 처방을 제공하세요');
+                        strategies.push('과학적 측정과 분석을 통한 개인별 운동 처방을 제공해 보세요');
                     }
                 }
             } else if (score >= 4) {
@@ -1899,24 +1899,104 @@ const detailedGradeInfo = {
 
 // 결과 공유
             function shareResults() {
-        const score = document.getElementById('finalScore').textContent;
-        const grade = document.getElementById('finalGrade').textContent;
-        const shareText = `시장 독점 진단 결과: ${score}점 (${grade})\n\n당신의 사업 경쟁력을 확인해보세요!`;
+        const shareText = `시장 독점 진단 설문을 해보세요!\n\n25개 문항으로 우리 매장의 사업 경쟁력을 진단합니다.`;
+        const surveyUrl = window.location.href;
+        const fullShareText = `${shareText}\n${surveyUrl}`;
         
         if (navigator.share) {
             navigator.share({
-                title: '시장 독점 진단 결과',
+                title: '시장 독점 진단 설문',
                 text: shareText,
-                url: window.location.href
+                url: surveyUrl
+            }).catch(err => {
+                // Web Share API 실패 시 클립보드로 대체
+                fallbackCopyTextToClipboard(fullShareText);
             });
         } else {
-            // 클립보드에 복사
-            navigator.clipboard.writeText(`${shareText}\n${window.location.href}`).then(() => {
-                alert('결과가 클립보드에 복사되었습니다!');
-            }).catch(() => {
-                console.log('공유 실패:', {});
-            });
+            // 클립보드 복사 시도
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(fullShareText).then(() => {
+                    showShareModal('설문 링크가 클립보드에 복사되었습니다!');
+                }).catch(() => {
+                    fallbackCopyTextToClipboard(fullShareText);
+                });
+            } else {
+                fallbackCopyTextToClipboard(fullShareText);
+            }
         }
+            }
+
+            function fallbackCopyTextToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            showShareModal('설문 링크가 클립보드에 복사되었습니다!');
+        } catch (err) {
+            showShareModal(`링크를 복사하세요:\n${text}`);
+        } finally {
+            document.body.removeChild(textArea);
+        }
+            }
+
+            function showShareModal(text) {
+        // 기존 모달이 있으면 제거
+        const existingModal = document.getElementById('shareModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // 모달 생성
+        const modal = document.createElement('div');
+        modal.id = 'shareModal';
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        `;
+        
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        `;
+        
+        modalContent.innerHTML = `
+            <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.5; white-space: pre-line;">${text}</p>
+            <button onclick="document.getElementById('shareModal').remove()" 
+                    style="background: #7C3AED; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 14px; cursor: pointer;">
+                확인
+            </button>
+        `;
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        
+        // 3초 후 자동 닫기
+        setTimeout(() => {
+            if (document.getElementById('shareModal')) {
+                modal.remove();
+            }
+        }, 3000);
             }
 
 // 결과 다운로드
