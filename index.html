@@ -53,7 +53,7 @@
                 font-weight: 800;
                 margin-bottom: 15px;
                 background: linear-gradient(135deg, #7C3AED, #a855f7);
-                background-clip: text;
+                background-clip: text;                
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
@@ -511,24 +511,76 @@
             }
 
             @media (max-width: 768px) {
+                body {
+                    padding: 10px 8px;
+                }
+                
                 .container {
-                    padding: 10px;
+                    padding: 0;
+                    max-width: 100%;
                 }
 
                 .survey-section, .results-section {
-                    padding: 25px;
+                    padding: 15px;
+                    margin: 0;
+                    border-radius: 12px;
+                }
+
+                .header {
+                    margin-bottom: 20px;
                 }
 
                 .header h1 {
-                    font-size: 26px;
+                    font-size: 22px;
+                    margin-bottom: 8px;
                 }
 
                 .header p {
-                    font-size: 16px;
+                    font-size: 14px;
+                    line-height: 1.4;
                 }
 
                 .options-grid {
                     grid-template-columns: 1fr;
+                    gap: 8px;
+                }
+
+                .option-btn {
+                    padding: 12px 8px;
+                    font-size: 13px;
+                    min-height: 60px;
+                }
+
+                .example-section {
+                    padding: 8px;
+                    margin-bottom: 15px;
+                }
+
+                .question-text {
+                    font-size: 16px;
+                    margin-bottom: 15px;
+                }
+
+                .question-item {
+                    margin-bottom: 20px;
+                }
+
+                .progress-section {
+                    margin-bottom: 15px;
+                }
+
+                .progress-title {
+                    font-size: 14px;
+                    margin-bottom: 8px;
+                }
+
+                .industry-selection {
+                    margin-bottom: 20px;
+                }
+
+                .industry-title {
+                    font-size: 16px;
+                    margin-bottom: 15px;
                 }
 
                 .industry-buttons {
