@@ -143,46 +143,11 @@ const surveyData = {
                 "대부분 고객이 어느 정도 인식한다",
                 "모든 고객이 명확히 인식하고 선택한다"
             ]
-        },
-        {
-            question: "고객 데이터를 체계적으로 수집하고 분석한다.",
-            example: {
-                wrong: "감각적으로 파악한다",
-                right: {
-                    fb: "방문 주기, 선호 메뉴, 결제 금액 등 체계적 기록",
-                    medical: "치료 이력, 증상 변화, 만족도 등 통합 관리",
-                    fitness: "운동 성과, 출석률, 개인별 목표 달성도 추적"
-                }
-            },
-            options: [
-                "데이터 수집을 하지 않는다",
-                "기본적인 연락처 정도만 관리",
-                "일부 정보는 기록한다",
-                "체계적으로 데이터를 수집한다",
-                "데이터 분석을 통한 개인화 서비스 제공"
-            ]
-        },
-        {
-            question: "브랜드나 매장의 온라인 평판을 적극적으로 관리한다.",
-            example: {
-                wrong: "리뷰는 가끔 확인한다",
-                right: {
-                    fb: "모든 플랫폼 리뷰 모니터링 + 즉시 답변",
-                    medical: "온라인 평점 관리 + 환자 후기 적극 수집",
-                    fitness: "SNS 후기 관리 + 성과 사례 적극 홍보"
-                }
-            },
-            options: [
-                "온라인 평판 관리를 하지 않는다",
-                "가끔 리뷰를 확인한다",
-                "부정적 리뷰에만 대응한다",
-                "정기적으로 평판을 관리한다",
-                "실시간 모니터링과 즉시 대응 시스템 운영"
-            ]
         }
     ],
     industries: {
         fb: [
+            // F&B 업종별 질문들 (기존 내용 그대로)
             {
                 question: "우리 매장의 시그니처 메뉴나 특화 상품이 있다.",
                 example: {
@@ -386,6 +351,7 @@ const surveyData = {
             }
         ],
         medical: [
+            // 의료 업종별 질문들
             {
                 question: "우리 병원의 진료 분야는 시장에서 뚜렷하게 포지셔닝되어 있다.",
                 example: {
@@ -587,6 +553,7 @@ const surveyData = {
             }
         ],
         fitness: [
+            // 피트니스 업종별 질문들
             {
                 question: "우리 센터는 명확한 타겟 고객을 대상으로 서비스를 설계하고 있다.",
                 example: {
@@ -789,9 +756,9 @@ const surveyData = {
 // 점수별 상세 진단 정보
 const detailedGradeInfo = {
     0: {
-        title: "🔥 치열 경쟁",
+        title: "위험 단계",
         class: "grade-danger",
-        status: "전략 재설계 필요 - 시장에서 경쟁력이 매우 부족한 상태입니다. 고객 관리 시스템과 차별화 전략의 전면적인 개선이 시급합니다.",
+        status: "현재 시장에서 경쟁력이 매우 부족한 상태입니다. 고객 관리 시스템과 차별화 전략의 전면적인 개선이 시급합니다.",
         improvements: [
             "고객 정의부터 다시 시작해야 합니다",
             "기본적인 고객 관리 시스템 구축이 필요합니다",
@@ -808,9 +775,9 @@ const detailedGradeInfo = {
         ]
     },
     1: {
-        title: "⚠️ 독점 준비",
+        title: "개선 필요",
         class: "grade-warning", 
-        status: "기본기 부족, 시스템화 필요 - 기본적인 시스템은 갖춰져 있으나 체계적인 고객 관리와 차별화가 부족합니다. 단계적 개선을 통해 경쟁력을 높여야 합니다.",
+        status: "기본적인 시스템은 갖춰져 있으나 체계적인 고객 관리와 차별화가 부족합니다. 단계적 개선을 통해 경쟁력을 높여야 합니다.",
         improvements: [
             "고객 세분화와 맞춤형 서비스가 필요합니다",
             "데이터 기반 의사결정 체계를 구축해야 합니다",
@@ -827,9 +794,9 @@ const detailedGradeInfo = {
         ]
     },
     2: {
-        title: "📈 독점 시작",
+        title: "성장 중",
         class: "grade-info",
-        status: "핵심 구조 있으나 자동화 미흡 - 경쟁업체 대비 어느 정도 차별화가 이루어져 있고 기본적인 고객 관리가 되고 있습니다. 시스템을 더욱 정교화하여 시장 점유율을 확대할 때입니다.",
+        status: "경쟁업체 대비 어느 정도 차별화가 이루어져 있고 기본적인 고객 관리가 되고 있습니다. 시스템을 더욱 정교화하여 시장 점유율을 확대할 때입니다.",
         improvements: [
             "고객 생애가치 관리가 더욱 정교해져야 합니다",
             "자동화된 고객 관리 시스템 도입이 필요합니다",
@@ -846,9 +813,9 @@ const detailedGradeInfo = {
         ]
     },
     3: {
-        title: "🚀 독점 근접",
+        title: "독점 근접",
         class: "grade-success",
-        status: "약한 고리 개선 시 독점 가능 - 시장에서 강력한 경쟁력을 갖추고 고객들이 당신을 선택하는 이유가 명확합니다. 이제 시장 독점을 위한 마지막 단계에 접어들었습니다.",
+        status: "시장에서 강력한 경쟁력을 갖추고 고객들이 당신을 선택하는 이유가 명확합니다. 이제 시장 독점을 위한 마지막 단계에 접어들었습니다.",
         improvements: [
             "완전 자동화된 고객 관리 시스템 구축",
             "예측 분석을 통한 선제적 고객 관리",
@@ -865,9 +832,9 @@ const detailedGradeInfo = {
         ]
     },
     4: {
-        title: "🏆 독점 완성",
+        title: "독점 완성",
         class: "grade-excellent",
-        status: "확장 전략 고려할 단계 - 축하합니다! 당신은 해당 시장에서 독점적 지위를 확보했습니다. 고객들이 다른 대안을 고려하지 않고 당신을 선택하는 구조가 완성되었습니다.",
+        status: "축하합니다! 당신은 해당 시장에서 독점적 지위를 확보했습니다. 고객들이 다른 대안을 고려하지 않고 당신을 선택하는 구조가 완성되었습니다.",
         improvements: [
             "시장 지배력 유지를 위한 지속적 혁신",
             "새로운 시장 개척과 사업 확장 검토",
@@ -912,41 +879,41 @@ function analyzeAnswers(answers, questions) {
             if (selectedIndustry === 'fb') {
                 if (question.question.includes('고객') && question.question.includes('정의')) {
                     improvements.push('타겟 고객을 구체적으로 정의하고 세분화해야 합니다');
-                    strategies.push('고객의 상황과 니즈를 중심으로 페르소나를 재설계 해보세요');
+                    strategies.push('고객의 상황과 고민을 중심으로 페르소나를 재설계하세요');
                 }
                 if (question.question.includes('차별화') || question.question.includes('시그니처')) {
                     improvements.push('경쟁업체와 구별되는 독특한 메뉴나 서비스가 필요합니다');
-                    strategies.push('지역/상권 특성과 고객 니즈를 반영한 시그니처 메뉴를 개발해 보세요');
+                    strategies.push('지역 특성과 고객 니즈를 반영한 시그니처 메뉴를 개발하세요');
                 }
                 if (question.question.includes('재방문') || question.question.includes('단골')) {
                     improvements.push('고객 재방문을 유도하는 특별한 이유를 만들어야 합니다');
-                    strategies.push('고객 선호도를 기반으로 맞춤 서비스와 리워드 프로그램을 구축해 보세요');
+                    strategies.push('개인별 선호도 기반 맞춤 서비스와 리워드 프로그램을 구축하세요');
                 }
             } else if (selectedIndustry === 'medical') {
                 if (question.question.includes('포지셔닝') || question.question.includes('전문')) {
                     improvements.push('병원의 전문 분야를 명확히 하고 브랜딩해야 합니다');
-                    strategies.push('특정 질병/질환이나 연령대에 특화된 전문 병원으로의 포지셔닝을 고민해 보세요');
+                    strategies.push('특정 질환이나 연령대에 특화된 전문 클리닉으로 포지셔닝하세요');
                 }
                 if (question.question.includes('진료') && question.question.includes('맞춤')) {
                     improvements.push('환자별 맞춤형 진료 프로세스가 필요합니다');
-                    strategies.push('사전 문진과 검사를 통한 개인별 치료 계획을 수립하고 환자와 공유해 보세요');
+                    strategies.push('사전 문진과 검사를 통한 개인별 치료 계획을 수립하세요');
                 }
                 if (question.question.includes('사후관리') || question.question.includes('예방')) {
                     improvements.push('치료 후 지속적인 관리 시스템이 필요합니다');
-                    strategies.push('단계별 사후관리 프로그램과 예방 솔루션을 제공해 보세요');
+                    strategies.push('단계별 사후관리 프로그램과 예방 솔루션을 제공하세요');
                 }
             } else if (selectedIndustry === 'fitness') {
                 if (question.question.includes('타겟') || question.question.includes('고객')) {
                     improvements.push('명확한 타겟 고객 정의와 맞춤형 서비스 설계가 필요합니다');
-                    strategies.push('특정 고민을 가진 고객군을 타겟으로 전문화된 프로그램을 개발해 보세요');
+                    strategies.push('특정 고민을 가진 고객군을 타겟으로 전문화된 프로그램을 개발하세요');
                 }
                 if (question.question.includes('차별화') || question.question.includes('독특')) {
-                    improvements.push('다른 센터와 구별되는 특별한 운동 프로그램이 필요합니다');
-                    strategies.push('특정 문제 해결에 특화된 전문 프로그램을 개발해 보세요');
+                    improvements.push('다른 센터와 구별되는 독특한 운동 프로그램이 필요합니다');
+                    strategies.push('특정 문제 해결에 특화된 전문 프로그램을 개발하세요');
                 }
                 if (question.question.includes('진단') || question.question.includes('측정')) {
                     improvements.push('체계적인 신체 진단과 상태 분석 프로세스가 필요합니다');
-                    strategies.push('과학적 측정과 분석을 통한 개인별 운동 처방을 제공해 보세요');
+                    strategies.push('과학적 측정과 분석을 통한 개인별 운동 처방을 제공하세요');
                 }
             }
         } else if (score >= 4) {
@@ -1094,37 +1061,39 @@ function showResults() {
     // 현재 상태 분석 업데이트
     document.getElementById('statusAnalysis').textContent = grade.status;
     
-    // 핵심 개선 포인트 업데이트 (중복 제거)
+    // 핵심 개선 포인트 업데이트
     const improvementPoints = document.getElementById('improvementPoints');
     improvementPoints.innerHTML = '';
     
-    // 개인화 분석 결과가 있으면 우선 사용, 없으면 등급별 기본 메시지 사용
-    let finalImprovements = [];
-    if (personalizedAnalysis.improvements.length > 0) {
-        finalImprovements = [...new Set(personalizedAnalysis.improvements)]; // 중복 제거
-    } else {
-        finalImprovements = grade.improvements.slice(0, 5); // 최대 5개
+    const combinedImprovements = [...personalizedAnalysis.improvements];
+    if (combinedImprovements.length < 3) {
+        grade.improvements.forEach(improvement => {
+            if (combinedImprovements.length < 5 && !combinedImprovements.includes(improvement)) {
+                combinedImprovements.push(improvement);
+            }
+        });
     }
         
-    finalImprovements.forEach(improvement => {
+    combinedImprovements.forEach(improvement => {
         const li = document.createElement('li');
         li.textContent = improvement;
         improvementPoints.appendChild(li);
     });
     
-    // 추천 전략 방향 업데이트 (중복 제거)
+    // 추천 전략 방향 업데이트
     const actionPlan = document.getElementById('actionPlan');
     actionPlan.innerHTML = '';
     
-    // 개인화 분석 결과가 있으면 우선 사용, 없으면 등급별 기본 메시지 사용
-    let finalStrategies = [];
-    if (personalizedAnalysis.strategies.length > 0) {
-        finalStrategies = [...new Set(personalizedAnalysis.strategies)]; // 중복 제거
-    } else {
-        finalStrategies = grade.actions.slice(0, 5); // 최대 5개
+    const combinedStrategies = [...personalizedAnalysis.strategies];
+    if (combinedStrategies.length < 3) {
+        grade.actions.forEach(action => {
+            if (combinedStrategies.length < 5 && !combinedStrategies.includes(action)) {
+                combinedStrategies.push(action);
+            }
+        });
     }
         
-    finalStrategies.forEach(action => {
+    combinedStrategies.forEach(action => {
         const li = document.createElement('li');
         li.textContent = action;
         actionPlan.appendChild(li);
@@ -1133,6 +1102,9 @@ function showResults() {
     // 섹션 전환
     document.getElementById('surveySection').style.display = 'none';
     document.getElementById('resultsSection').style.display = 'block';
+    
+    // 최상단으로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 등급 진행상황 시각화 업데이트
@@ -1173,109 +1145,224 @@ function restartSurvey() {
     // 섹션 전환
     document.getElementById('surveySection').style.display = 'block';
     document.getElementById('resultsSection').style.display = 'none';
+    
+    // 최상단으로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // 결과 공유
 function shareResults() {
-    const shareText = `시장 독점 진단 설문을 해보세요!\n\n25개 문항으로 우리 매장의 사업 경쟁력을 진단합니다.`;
-    const surveyUrl = 'https://essenpeak.com/offline-business-growth-tools/market-dominance-diagnostic';
-    const fullShareText = `${shareText}\n${surveyUrl}`;
+    const scoreElement = document.getElementById('finalScore');
+    const gradeElement = document.getElementById('finalGrade');
     
-    if (navigator.share) {
+    if (!scoreElement || !gradeElement) {
+        alert('먼저 설문을 완료해주세요.');
+        return;
+    }
+    
+    const score = scoreElement.textContent.trim();
+    const grade = gradeElement.textContent.trim();
+    
+    if (!score || score === '-' || !grade) {
+        alert('먼저 설문을 완료해주세요.');
+        return;
+    }
+    
+    const shareText = `시장 독점 진단 결과: ${score}점 (${grade})\n\n당신의 사업 경쟁력을 확인해보세요!\n${window.location.href}`;
+    
+    // 모바일 환경에서 Web Share API 우선 시도
+    if (navigator.share && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         navigator.share({
-            title: '시장 독점 진단 설문',
+            title: '시장 독점 진단 결과',
             text: shareText,
-            url: surveyUrl
-        }).catch(err => {
-            // Web Share API 실패 시 클립보드로 대체
-            fallbackCopyTextToClipboard(fullShareText);
+            url: window.location.href
+        }).catch((error) => {
+            console.log('Share failed:', error);
+            fallbackCopyTextToClipboard(shareText);
+        });
+    } else if (navigator.clipboard && window.isSecureContext) {
+        // HTTPS 환경에서 클립보드 API 사용
+        navigator.clipboard.writeText(shareText).then(() => {
+            alert('결과가 클립보드에 복사되었습니다!');
+        }).catch(() => {
+            fallbackCopyTextToClipboard(shareText);
         });
     } else {
-        // 클립보드 복사 시도
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(fullShareText).then(() => {
-                showShareModal('설문 링크가 클립보드에 복사되었습니다!');
-            }).catch(() => {
-                fallbackCopyTextToClipboard(fullShareText);
-            });
-        } else {
-            fallbackCopyTextToClipboard(fullShareText);
-        }
+        // 폴백 방식
+        fallbackCopyTextToClipboard(shareText);
     }
 }
 
+// 폴백 클립보드 복사
 function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement('textarea');
+    const textArea = document.createElement("textarea");
     textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    textArea.style.top = '-999999px';
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
     
     try {
-        document.execCommand('copy');
-        showShareModal('설문 링크가 클립보드에 복사되었습니다!');
-    } catch (err) {
-        showShareModal(`링크를 복사하세요:\n${text}`);
-    } finally {
+        const successful = document.execCommand('copy');
         document.body.removeChild(textArea);
+        if (successful) {
+            alert('결과가 클립보드에 복사되었습니다!');
+        } else {
+            showShareModal(text);
+        }
+    } catch (err) {
+        document.body.removeChild(textArea);
+        showShareModal(text);
     }
 }
 
+// 공유 모달 표시
 function showShareModal(text) {
-    // 기존 모달이 있으면 제거
-    const existingModal = document.getElementById('shareModal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-    
-    // 모달 생성
     const modal = document.createElement('div');
-    modal.id = 'shareModal';
     modal.style.cssText = `
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.8);
         display: flex;
-        justify-content: center;
         align-items: center;
-        z-index: 1000;
+        justify-content: center;
+        z-index: 10000;
+        padding: 20px;
+        box-sizing: border-box;
     `;
     
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: white;
-        padding: 30px;
-        border-radius: 15px;
-        max-width: 400px;
-        width: 90%;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        ">
+            <h3 style="margin: 0 0 15px 0; color: #333; font-size: 18px;">결과 공유하기</h3>
+            <textarea readonly style="
+                width: 100%;
+                height: 120px;
+                padding: 12px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                font-size: 14px;
+                resize: none;
+                font-family: inherit;
+                line-height: 1.4;
+                box-sizing: border-box;
+            ">${text}</textarea>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="this.closest('div').parentElement.remove()" style="
+                    padding: 12px 24px;
+                    background: #7C3AED;
+                    color: white;
+                    border: none;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: background 0.2s;
+                " onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#7C3AED'">닫기</button>
+            </div>
+            <p style="font-size: 12px; color: #64748b; margin: 15px 0 0 0; text-align: center; line-height: 1.4;">
+                위 텍스트를 복사해서 SNS나 메신저로 공유해보세요.
+            </p>
+        </div>
     `;
     
-    modalContent.innerHTML = `
-        <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.5; white-space: pre-line;">${text}</p>
-        <button onclick="document.getElementById('shareModal').remove()" 
-                style="background: #405DE6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 14px; cursor: pointer;">
-            확인
-        </button>
-    `;
-    
-    modal.appendChild(modalContent);
     document.body.appendChild(modal);
     
-    // 3초 후 자동 닫기
-    setTimeout(() => {
-        if (document.getElementById('shareModal')) {
+    // 배경 클릭시 닫기
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
             modal.remove();
         }
-    }, 3000);
+    });
+    
+    // 텍스트 영역 클릭시 전체 선택
+    const textarea = modal.querySelector('textarea');
+    textarea.addEventListener('click', () => {
+        textarea.select();
+    });
 }
+
+// iframe 높이 자동 조정 (웹플로우 iframe 연동용)
+function adjustIframeHeight() {
+    if (window.parent && window.parent !== window) {
+        try {
+            const height = Math.max(
+                document.body.scrollHeight,
+                document.body.offsetHeight,
+                document.documentElement.clientHeight,
+                document.documentElement.scrollHeight,
+                document.documentElement.offsetHeight
+            );
+            
+            // 추가 여백을 포함한 높이 계산
+            const adjustedHeight = height + 100;
+            
+            // 부모 window에 높이 정보 전송
+            window.parent.postMessage({
+                type: 'iframe-height',
+                height: adjustedHeight
+            }, '*');
+            
+            // 모바일 환경 추가 조정
+            if (window.innerWidth <= 768) {
+                window.parent.postMessage({
+                    type: 'iframe-height',
+                    height: adjustedHeight + 200
+                }, '*');
+            }
+        } catch (e) {
+            console.log('iframe height adjustment failed:', e);
+        }
+    }
+}
+
+// 페이지 로드 및 크기 변경 시 높이 조정
+document.addEventListener('DOMContentLoaded', adjustIframeHeight);
+window.addEventListener('resize', adjustIframeHeight);
+
+// MutationObserver로 DOM 변경 감지하여 높이 조정
+const observer = new MutationObserver(() => {
+    setTimeout(adjustIframeHeight, 100);
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true
+});
+
+// 업종 선택, 결과 표시, 재시작 시 높이 조정 트리거
+const originalSelectIndustry = selectIndustry;
+const originalShowResults = showResults;
+const originalRestartSurvey = restartSurvey;
+
+selectIndustry = function(...args) {
+    originalSelectIndustry.apply(this, args);
+    setTimeout(adjustIframeHeight, 300);
+};
+
+showResults = function(...args) {
+    const result = originalShowResults.apply(this, args);
+    setTimeout(adjustIframeHeight, 300);
+    return result;
+};
+
+restartSurvey = function(...args) {
+    const result = originalRestartSurvey.apply(this, args);
+    setTimeout(adjustIframeHeight, 300);
+    return result;
+};
 
 // 결과 다운로드
 function downloadResults() {
