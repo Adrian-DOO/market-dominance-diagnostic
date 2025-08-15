@@ -1,2038 +1,1119 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>시장 독점 진단 설문</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>고객 관여도 진단 도구</title>
+    
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        /* Inter Font Family */
+        * {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", sans-serif;
+            letter-spacing: -0.04em;
+        }
+
+        /* Root Variables - Primary Color */
+        :root {
+            --primary-color: #405DE6;
+            
+            --primary-gradient: #405DE6;
+            --light-gradient: linear-gradient(135deg, rgba(64, 93, 230, 0.1) 0%, rgba(64, 93, 230, 0.05) 100%);
+            
+            --shadow-light: 0 2px 10px rgba(64, 93, 230, 0.1);
+            --shadow-medium: 0 4px 20px rgba(64, 93, 230, 0.15);
+            --shadow-heavy: 0 8px 30px rgba(64, 93, 230, 0.2);
+        }
+
+        /* Body */
+        body {
+            background: transparent;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar-brand {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        /* Buttons */
+        .btn-gradient {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 12px 30px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 60px 0;
+        }
+
+        .hero-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-feather {
+            width: 80px;
+            height: 80px;
+            stroke: var(--primary-color);
+            stroke-width: 1.5;
+        }
+
+        /* Process Steps */
+        .process-step {
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .step-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 36px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            stroke: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .process-step h5 {
+            margin-bottom: 10px;
+            font-size: 1.0rem;
+            flex-shrink: 0;
+        }
+
+        .process-step p {
+            margin-bottom: 0;
+            font-size: 0.8rem;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Form Cards */
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-icon {
+            width: 48px;
+            height: 48px;
+            stroke: var(--primary-color);
+            stroke-width: 1.5;
+        }
+
+        .form-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Progress */
+        .progress {
+            height: 6px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: var(--primary-color);
+            border-radius: 10px;
+            transition: width 0.6s ease;
+        }
+
+        /* Industry/Persona Selection */
+        .industry-selection, .persona-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .industry-option, .persona-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .industry-label, .persona-label {
+            display: block;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .industry-label:hover, .persona-label:hover {
+            border-color: var(--primary-color);
+            background: var(--light-gradient);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .industry-option input:checked + .industry-label,
+        .persona-option input:checked + .persona-label {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .industry-content, .persona-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .industry-icon, .persona-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        .industry-icon i, .persona-icon i {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Question Cards */
+        .question-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .likert-scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .likert-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .likert-option input[type="radio"] {
+            display: none;
+        }
+
+        .likert-option label {
+            display: block;
+            padding: 12px 8px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            font-size: 0.9rem;
+        }
+
+        .likert-option label:hover {
+            border-color: var(--primary-color);
+            background: var(--light-gradient);
+        }
+
+        .likert-option input:checked + label {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Results Section */
+        .results-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 40px;
+            background: var(--light-gradient);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .score-level {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 10px;
+        }
+
+        .strategy-channel {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .strategy-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .strategy-icon {
+            width: 40px;
+            height: 40px;
+            stroke: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
             }
 
-            body {
-                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                letter-spacing: -0.04em
-                min-height: 100vh;
-                padding: 30px 15px;
-                margin: 0;
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
 
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0px 15px 0px 15px
+            .form-card {
+                padding: 25px;
             }
 
-            .survey-section, .results-section {
-                background: white;
-                border-radius: 20px;
-                padding: 20px;
-                box-shadow: 0 10px 30px rgba(124, 58, 237, 0.1);
-                border: 2px solid #f8fafc;
-            }
-
-            .results-section {
-                display: none;
-                animation: fadeIn 0.8s ease-in-out;
-            }
-
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            .header {
-                text-align: center;
-                margin-bottom: 40px;
-            }
-
-            .header h1 {
-                color: #405DE6;
-                font-size: 28px;
-                font-weight: 800;
-                margin-bottom: 15px;
-                background: linear-gradient(135deg, #405DE6, #5B51D8);
-                background-clip: text;                
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-
-            .header p {
-                color: #64748b;
-                font-size: 18px;
-                line-height: 1.6;
-            }
-
-            .industry-selection {
-                margin-bottom: 40px;
-            }
-
-            .industry-title {
-                color: #1e293b;
-                font-size: 20px;
-                font-weight: 700;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-
-            .industry-buttons {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 15px;
-                margin-bottom: 20px;
-            }
-
-            .industry-btn {
-                padding: 20px;
-                border: 2px solid #e2e8f0;
-                background: white;
-                border-radius: 15px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-align: center;
-                font-weight: 600;
-                font-size: 16px;
-                color: #475569;
-            }
-
-            .industry-btn:hover {
-                border-color: #405DE6;
-                background: #f8fafc;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(124, 58, 237, 0.1);
-            }
-
-            .industry-btn.active {
-                border-color: #405DE6;
-                background: #405DE6;
-                color: white;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
-            }
-
-            .progress-section {
-                position: sticky;
-                top: 20px;
-                z-index: 100;
-                margin-bottom: 30px;
-                padding: 20px;
-                background: #f8fafc;
-                border-radius: 15px;
-                border: 2px solid #e2e8f0;
-                box-shadow: 0 4px 15px rgba(124, 58, 237, 0.1);
-            }
-
-            .progress-title {
-                color: #1e293b;
-                font-size: 16px;
-                font-weight: 600;
-                margin-bottom: 10px;
-                text-align: center;
-            }
-
-            .progress-bar {
-                width: 100%;
-                height: 12px;
-                background: #e2e8f0;
-                border-radius: 6px;
-                overflow: hidden;
-                margin-bottom: 10px;
-            }
-
-            .progress-fill {
-                height: 100%;
-                background: linear-gradient(135deg, #405DE6, #5B51D8);
-                width: 0%;
-                transition: width 0.5s ease;
-            }
-
-            .progress-text {
-                text-align: center;
-                color: #64748b;
-                font-size: 14px;
-                font-weight: 500;
-            }
-
-            .question-container {
-                margin-bottom: 40px;
-                padding: 30px;
-                background: #f8fafc;
-                border-radius: 20px;
-                border: 2px solid #e2e8f0;
-            }
-
-            .question-title {
-                color: #1e293b;
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 20px;
-                line-height: 1.5;
-            }
-
-            .example-section {
-                background: white;
-                border-radius: 10px;
-                padding: 12px;
-                margin-bottom: 20px;
-                border: 1px solid #e2e8f0;
-            }
-
-            .example-title {
-                color: #1e293b;
-                font-size: 14px;
-                font-weight: 600;
-                margin-bottom: 10px;
-            }
-
-            .example-content {
-                display: flex;
+            .likert-scale {
                 flex-direction: column;
                 gap: 8px;
             }
 
-            .example-wrong {
-                color: #dc2626;
-                font-size: 12px;
-                padding: 6px 10px;
-                background: #fef2f2;
-                border-radius: 6px;
-                border-left: 3px solid #dc2626;
+            .likert-option label {
+                padding: 15px;
+                font-size: 1rem;
             }
 
-            .example-right {
-                color: #059669;
-                font-size: 12px;
-                padding: 6px 10px;
-                background: #f0fdf4;
-                border-radius: 6px;
-                border-left: 2px solid #059669;
-            }
-
-            .options-grid {
-                display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 8px;
-            }
-
-            .option-btn {
-                padding: 12px 8px;
-                border: 1px solid #e2e8f0;
-                background: white;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                font-size: 14px;
-                text-align: center;
-                line-height: 1.2;
-                min-height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 500;
-            }
-
-            .option-btn:hover {
-                border-color: #405DE6;
-                background: #f8fafc;
-                transform: translateY(-1px);
-            }
-
-            .option-btn.selected {
-                border-color: #405DE6;
-                background: #405DE6;
-                color: white;
-                font-weight: 600;
-            }
-
-            .submit-section {
-                text-align: center;
-                margin-top: 40px;
-                padding-top: 30px;
-            }
-
-            .submit-btn {
-                padding: 18px 40px;
-                background: linear-gradient(135deg, #405DE6, #5B51D8);
-                color: white;
-                border: none;
-                border-radius: 15px;
-                font-size: 18px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                opacity: 0.5;
-                pointer-events: none;
-            }
-
-            .submit-btn.active {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-            .submit-btn:hover.active {
-                transform: translateY(-3px);
-                box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
-            }
-
-            .score-display {
-                text-align: center;
-                margin-bottom: 40px;
-            }
-
-            .score-circle {
-                width: 100px;
-                height: 100px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #405DE6, #5B51D8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 20px;
-                box-shadow: 0 15px 40px rgba(124, 58, 237, 0.3);
-            }
-
-            .score-number {
-                color: white;
-                font-size: 36px;
-                font-weight: 800;
-            }
-
-            .grade-badge {
-                display: inline-block;
-                padding: 12px 24px;
-                border-radius: 25px;
-                font-size: 18px;
-                font-weight: 700;
-                margin: 10px 0;
-            }
-
-            .grade-danger { background: #fee2e2; color: #dc2626; }
-            .grade-warning { background: #fef3c7; color: #d97706; }
-            .grade-info { background: #dbeafe; color: #2563eb; }
-            .grade-success { background: #d1fae5; color: #059669; }
-            .grade-excellent { background: #ede9fe; color: #7c3aed; }
-
-            .grade-progress {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin: 30px 0;
-                position: relative;
-            }
-
-            .grade-progress::before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: #e2e8f0;
-                z-index: 1;
-            }
-
-            .grade-step {
-                display: flex;
+            .industry-content, .persona-content {
                 flex-direction: column;
-                align-items: center;
-                position: relative;
-                z-index: 2;
-            }
-
-            .grade-step-circle {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background: #e2e8f0;
-                color: #94a3b8;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
-                font-size: 16px;
-                transition: all 0.3s ease;
-                margin-bottom: 8px;
-            }
-
-            .grade-step-label {
-                font-size: 14px;
                 text-align: center;
-                color: #64748b;
-                font-weight: 500;
-                max-width: 80px;
             }
 
-            .grade-step.completed .grade-step-circle {
-                background: #405DE6;
-                color: white;
-            }
-
-            .grade-step.current .grade-step-circle {
-                background: #5B51D8;
-                color: white;
-                transform: scale(1.2);
-                box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3);
-            }
-
-            .grade-step.current .grade-step-label {
-                color: #405DE6;
-                font-weight: 600;
-            }
-
-            .analysis-section {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 30px;
-                margin-bottom: 40px;
-            }
-
-            .analysis-card {
-                background: white;
-                border-radius: 20px;
-                padding: 30px;
-                border: 2px solid #e2e8f0;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            }
-
-            .analysis-title {
-                color: #1e293b;
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 20px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .status-text {
-                color: #64748b;
-                font-size: 14px;
-                line-height: 1.6;
-                margin-bottom: 20px;
-            }
-
-            .improvement-list, .action-list {
-                list-style: none;
-                padding: 0;
-            }
-
-            .improvement-list li, .action-list li {
-                background: white;
-                padding: 14px;
-                border-radius: 10px;
+            .industry-icon, .persona-icon {
+                margin-right: 0;
                 margin-bottom: 10px;
-                border-left: 4px solid #405DE6;
-                font-weight: 500;
             }
+        }
 
-            .cta-section {
-                text-align: center;
-                background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-                border-radius: 20px;
-                padding: 40px;
-                border: 2px solid #405DE6;
-            }
+        /* Step visibility */
+        .step-content {
+            display: none;
+        }
 
-            .cta-title {
-                color: #1e293b;
-                font-size: 18px;
-                font-weight: 700;
-                margin-bottom: 15px;
-            }
+        .step-content.active {
+            display: block;
+        }
 
-            .cta-description {
-                color: #64748b;
-                font-size: 14px;
-                margin-bottom: 25px;
-                line-height: 1.6;
-            }
 
-            .cta-button {
-                display: inline-block;
-                padding: 20px 40px;
-                background: linear-gradient(135deg, #405DE6, #5B51D8);
-                color: white;
-                border: none;
-                border-radius: 15px;
-                font-size: 18px;
-                font-weight: 700;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-decoration: none;
-            }
-
-            .cta-button:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
-            }
-
-            .result-controls {
-                display: flex;
-                gap: 15px;
-                justify-content: center;
-                margin-top: 30px;
-                flex-wrap: wrap;
-            }
-
-            .control-btn {
-                padding: 12px 25px;
-                border: 2px solid #405DE6;
-                background: white;
-                color: #405DE6;
-                border-radius: 10px;
-                font-size: 14px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .control-btn:hover {
-                background: #405DE6;
-                color: white;
-                transform: translateY(-2px);
-            }
-
-            .control-btn.primary {
-                background: #405DE6;
-                color: white;
-            }
-
-            .control-btn.primary:hover {
-                background: #5B51D8;
-            }
-
-            .hidden {
-                display: none;
-            }
-
-            @media (max-width: 768px) {
-                body {
-                    padding: 10px 8px;
-                }
-                
-                .container {
-                    padding: 0;
-                    max-width: 100%;
-                }
-
-                .survey-section, .results-section {
-                    padding: 15px;
-                    margin: 0;
-                    border-radius: 12px;
-                }
-
-                .header {
-                    margin-bottom: 20px;
-                }
-
-                .header h1 {
-                    font-size: 22px;
-                    margin-bottom: 8px;
-                }
-
-                .header p {
-                    font-size: 14px;
-                    line-height: 1.4;
-                }
-
-                .options-grid {
-                    grid-template-columns: 1fr;
-                    gap: 8px;
-                }
-
-                .option-btn {
-                    padding: 12px 8px;
-                    font-size: 13px;
-                    min-height: 60px;
-                }
-
-                .example-section {
-                    padding: 8px;
-                    margin-bottom: 15px;
-                }
-
-                .question-text {
-                    font-size: 14px;
-                    margin-bottom: 15px;
-                }
-
-                .question-item {
-                    margin-bottom: 20px;
-                }
-
-                .progress-section {
-                    margin-bottom: 15px;
-                }
-
-                .progress-title {
-                    font-size: 14px;
-                    margin-bottom: 8px;
-                }
-
-                .industry-selection {
-                    margin-bottom: 20px;
-                }
-
-                .industry-title {
-                    font-size: 16px;
-                    margin-bottom: 15px;
-                }
-
-                .industry-buttons {
-                    grid-template-columns: 1fr;
-                }
-
-                .score-circle {
-                    width: 120px;
-                    height: 120px;
-                }
-
-                .score-number {
-                    font-size: 28px;
-                }
-            }
-        </style>
+    </style>
 </head>
 <body>
-        <div class="container">
-            <!-- 설문 섹션 -->
-            <div id="surveySection" class="survey-section">
-                <div class="header">
-                    <h1>시장 독점 진단 설문</h1>
-                    <p>25개 문항을 통해 귀하의 사업이 시장에서 독점적 지위를 확보할 수 있는 정도를 진단합니다</p>
-                </div>
 
-                <div id="industrySelection" class="industry-selection">
-                    <div class="industry-title">업종을 선택해주세요</div>
-                    <div class="industry-buttons">
-                        <button class="industry-btn" onclick="selectIndustry('fb')">
-                            🍽️ 외식업 (F&B)
-                        </button>
-                        <button class="industry-btn" onclick="selectIndustry('medical')">
-                            🏥 병의원
-                        </button>
-                        <button class="industry-btn" onclick="selectIndustry('fitness')">
-                            💪 피트니스/웰니스
-                        </button>
-                    </div>
-                </div>
 
-                <div id="progressSection" class="progress-section hidden">
-                    <div class="progress-title">진행 상황</div>
-                    <div class="progress-bar">
-                        <div id="progressFill" class="progress-fill"></div>
-                    </div>
-                    <div id="progressText" class="progress-text">0/25 문항 완료</div>
-                </div>
-
-                <div id="questionsContainer"></div>
-
-                <div id="submitSection" class="submit-section hidden">
-                    <button id="submitBtn" class="submit-btn" onclick="showResults()">
-                        결과 확인하기
-                    </button>
-                </div>
-            </div>
-
-            <!-- 결과 섹션 -->
-            <div id="resultsSection" class="results-section">
-                <div class="header">
-                    <h1>시장 독점 진단 결과</h1>
-                    <div class="score-display">
-                        <div class="score-circle">
-                            <span id="finalScore" class="score-number">0</span>
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Step 1: Introduction -->
+        <div id="step-intro" class="step-content active">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Hero Section -->
+                    <div class="hero-section text-center mb-5">
+                        <div class="hero-icon mb-4">
+                            <i data-feather="target" class="hero-feather"></i>
                         </div>
-                        <div id="finalGrade" class="grade-badge">등급</div>
-                    </div>
-                </div>
-
-                <div class="grade-progress">
-                    <div class="grade-step" data-grade="0">
-                        <div class="grade-step-circle">1</div>
-                        <div class="grade-step-label">🔥 치열 경쟁</div>
-                    </div>
-                    <div class="grade-step" data-grade="1">
-                        <div class="grade-step-circle">2</div>
-                        <div class="grade-step-label">⚠️ 독점 준비</div>
-                    </div>
-                    <div class="grade-step" data-grade="2">
-                        <div class="grade-step-circle">3</div>
-                        <div class="grade-step-label">📈 독점 시작</div>
-                    </div>
-                    <div class="grade-step" data-grade="3">
-                        <div class="grade-step-circle">4</div>
-                        <div class="grade-step-label">🚀 독점 근접</div>
-                    </div>
-                    <div class="grade-step" data-grade="4">
-                        <div class="grade-step-circle">5</div>
-                        <div class="grade-step-label">🏆 독점 완성</div>
-                    </div>
-                </div>
-
-                <div class="analysis-section">
-                    <div class="analysis-card">
-                        <div class="analysis-title">📊 현재 상태 분석</div>
-                        <div id="statusAnalysis" class="status-text"></div>
+                        <h1 class="hero-title mb-4">오프라인 매장 고객 관여도 진단 도구</h1>
+                        <p class="hero-subtitle mb-4">
+                            고객의 구매 행동을 분석하고 맞춤형 마케팅 전략을 제안해드립니다.<br>
+                            업종별 특성을 반영한 전문적인 진단으로 효과적인 마케팅 방향을 찾아보세요.
+                        </p>
                     </div>
 
-                    <div class="analysis-card">
-                        <div class="analysis-title">🔧 핵심 개선 포인트</div>
-                        <ul class="improvement-list" id="improvementPoints"></ul>
+                    <!-- Process Steps -->
+                    <div class="process-section mb-5">
+                        <div class="row g-4">
+                            <div class="col-md-3">
+                                <div class="process-step text-center">
+                                    <div class="step-header">
+                                        <div class="step-number">1</div>
+                                        <i data-feather="briefcase" class="step-icon"></i>
+                                    </div>
+                                    <h5>업종 선택</h5>
+                                    <p class="text-muted">음식점, 카페, 피트니스 중 선택</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="process-step text-center">
+                                    <div class="step-header">
+                                        <div class="step-number">2</div>
+                                        <i data-feather="users" class="step-icon"></i>
+                                    </div>
+                                    <h5>고객 페르소나</h5>
+                                    <p class="text-muted">주요 고객 유형 파악</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="process-step text-center">
+                                    <div class="step-header">
+                                        <div class="step-number">3</div>
+                                        <i data-feather="help-circle" class="step-icon"></i>
+                                    </div>
+                                    <h5>관여도 진단</h5>
+                                    <p class="text-muted">15개 문항 설문 조사</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="process-step text-center">
+                                    <div class="step-header">
+                                        <div class="step-number">4</div>
+                                        <i data-feather="trending-up" class="step-icon"></i>
+                                    </div>
+                                    <h5>전략 제안</h5>
+                                    <p class="text-muted">맞춤형 마케팅 전략</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="analysis-card">
-                        <div class="analysis-title">🚀 추천 전략 방향</div>
-                        <ul class="action-list" id="actionPlan"></ul>
+                    <!-- CTA Button -->
+                    <div class="text-center">
+                        <button class="btn btn-gradient btn-lg px-5 py-3" onclick="showStep('industry')">
+                            <i data-feather="play" class="me-2"></i>
+                            진단 시작하기
+                        </button>
+                        <p class="text-muted mt-3">
+                            <i data-feather="clock" class="me-1"></i>
+                            약 5분 소요
+                        </p>
                     </div>
-                </div>
-
-                <div class="result-controls">
-                    <button class="control-btn" onclick="restartSurvey()">
-                        다시 진단하기
-                    </button>
-                    <button class="control-btn" onclick="shareResults()">
-                        결과 공유하기
-                    </button>
-                    <button class="control-btn" onclick="downloadResults()">
-                        결과 다운로드
-                    </button>
                 </div>
             </div>
         </div>
 
-        <script>
-            // 전역 변수 선언
-            let selectedIndustry = '';
-            let currentQuestions = [];
-            let answers = {};
+        <!-- Step 2: Industry Selection -->
+        <div id="step-industry" class="step-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <!-- Progress Indicator -->
+                    <div class="progress-section mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 25%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-primary fw-bold">1. 업종 선택</small>
+                            <small class="text-muted">2. 페르소나</small>
+                            <small class="text-muted">3. 설문</small>
+                            <small class="text-muted">4. 결과</small>
+                        </div>
+                    </div>
 
-// 설문 데이터 구조 (25개 문항: 공통 10개 + 업종별 15개)
-            const surveyData = {
-        common: [
-            {
-                question: "우리 매장의 주요 고객을 한 문장으로 설명할 수 있다.",
-                example: {
-                    wrong: "20~40대 여성",
-                    right: {
-                        fb: "점심시간이 짧은 직장인",
-                        medical: "허리 통증이 있는 30대 워킹맘", 
-                        fitness: "출산 후 체형 관리가 필요한 30대 여성"
-                    }
-                },
-                options: [
-                    "전혀 정의되지 않았다",
-                    "나이·성별 등만 포함되어 있다",
-                    "직업 등은 포함했으나 상황은 모호하다",
-                    "상황과 고민이 일부 반영되어 있다",
-                    "명확한 상황+고민 중심으로 뾰족하게 정의되어 있다"
-                ]
-            },
-            {
-                question: "우리 매장만의 상품/서비스는 차별점이 명확하다.",
-                example: {
-                    right: {
-                        fb: "ㅇㅇ먹을 땐 우리 매장",
-                        medical: "ㅇㅇ분야 특화 진료 + 완치까지 개인별 관리",
-                        fitness: "개인별 운동 처방 + 홈 트레이닝 가이드"
-                    }
-                },
-                options: [
-                    "차별점이 전혀 없다",
-                    "약간의 차이는 있으나 모호하다",
-                    "차별점은 있으나 고객이 인지하기 어렵다",
-                    "고객이 어느 정도 인지할 수 있다",
-                    "고객이 명확히 인지하고 선택 이유가 된다"
-                ]
-            },
-            {
-                question: "고객이 우리 매장을 재방문하는 명확한 이유가 있다.",
-                example: {
-                    right: {
-                        fb: "단골 고객만을 위한 특별한 메뉴/서비스",
-                        medical: "치료 후 관리 프로그램 + 건강 관리 시스템",
-                        fitness: "개인별 목표 달성 프로그램 + 성과 추적"
-                    }
-                },
-                options: [
-                    "재방문 이유가 불분명하다",
-                    "가격이나 위치 등 소극적 이유",
-                    "서비스나 품질의 일반적 만족",
-                    "특별한 경험이나 혜택 제공",
-                    "다른 곳에서 대체 불가능한 가치 제공"
-                ]
-            },
-            {
-                question: "고객의 평생가치(CLV)를 정확히 파악하고 있다.",
-                example: {
-                    right: {
-                        fb: "평균 고객이 6개월간 15만원 소비",
-                        medical: "환자 1명당 연간 치료비 80만원",
-                        fitness: "회원 1명당 평균 12개월 이용 120만원"
-                    }
-                },
-                options: [
-                    "전혀 파악하지 못한다",
-                    "대략적인 감각만 있다",
-                    "일부 데이터는 있으나 정확하지 않다",
-                    "어느 정도 정확히 파악하고 있다",
-                    "정확한 데이터와 분석 시스템이 있다"
-                ]
-            },
-            {
-                question: "고객의 재방문 주기와 패턴을 체계적으로 관리한다.",
-                example: {
-                    right: {
-                        fb: "고객별 방문 주기 알림 + 맞춤 프로모션 발송",
-                        medical: "치료 스케줄 관리 + 정기 검진 알림",
-                        fitness: "운동 주기 분석 + 개인별 동기부여 메시지"
-                    }
-                },
-                options: [
-                    "전혀 관리하지 않는다",
-                    "간헐적으로 확인만 한다",
-                    "기본적인 기록은 유지한다",
-                    "패턴 분석 후 일부 관리한다",
-                    "체계적 관리 시스템으로 자동화되어 있다"
-                ]
-            },
-            {
-                question: "고객 등급별 맞춤형 서비스나 혜택을 제공한다.",
-                example: {
-                    right: {
-                        fb: "방문 횟수별 개인 맞춤 메뉴 추천/할인",
-                        medical: "치료 이력별 우선 예약 + 맞춤 건강 상담",
-                        fitness: "운동 성과별 전문 트레이닝 + 영양 상담"
-                    }
-                },
-                options: [
-                    "모든 고객을 동일하게 대한다",
-                    "VIP 정도만 구분한다",
-                    "간단한 등급 구분은 있다",
-                    "등급별 차별화된 혜택 제공",
-                    "개인화된 맞춤형 서비스 시스템 운영"
-                ]
-            },
-            {
-                question: "고객 불만이나 피드백을 체계적으로 수집하고 개선한다.",
-                example: {
-                    wrong: "불만 발생 시에만 수집",
-                    right: {
-                        fb: "매월 만족도 조사 + 개선사항 피드백",
-                        medical: "진료 후 만족도 조사 + 치료 결과 추적",
-                        fitness: "운동 효과 평가 + 프로그램 개선 반영"
-                    }
-                },
-                options: [
-                    "피드백 수집 체계가 없다",
-                    "불만 발생 시에만 대응한다",
-                    "간헐적으로 의견을 수렴한다",
-                    "정기적으로 피드백을 수집한다",
-                    "실시간 피드백 시스템으로 즉시 개선"
-                ]
-            },
-            {
-                question: "경쟁업체 대비 우리의 강점을 고객이 명확히 인식한다.",
-                example: {
-                    right: {
-                        fb: "ㅇㅇ하면 이 집이 최고라서 선택",
-                        medical: "ㅇㅇ치료엔 이 병원이 전문이라서 선택",
-                        fitness: "개인별 관리가 체계적이고 세심해서 선택"
-                    }
-                },
-                options: [
-                    "경쟁업체와 차이가 없다",
-                    "약간의 차이만 있다",
-                    "일부 고객만 인식한다",
-                    "대부분 고객이 어느 정도 인식한다",
-                    "모든 고객이 명확히 인식하고 선택한다"
-                ]
-            },
-            {
-                question: "고객 데이터를 체계적으로 수집하고 분석한다.",
-                example: {
-                    wrong: "감각적으로 파악한다",
-                    right: {
-                        fb: "방문 주기, 선호 메뉴, 결제 금액 등 체계적 기록",
-                        medical: "치료 이력, 증상 변화, 만족도 등 통합 관리",
-                        fitness: "운동 성과, 출석률, 개인별 목표 달성도 추적"
-                    }
-                },
-                options: [
-                    "데이터 수집을 하지 않는다",
-                    "기본적인 연락처 정도만 관리",
-                    "일부 정보는 기록한다",
-                    "체계적으로 데이터를 수집한다",
-                    "데이터 분석을 통한 개인화 서비스 제공"
-                ]
-            },
-            {
-                question: "브랜드나 매장의 온라인 평판을 적극적으로 관리한다.",
-                example: {
-                    wrong: "리뷰는 가끔 확인한다",
-                    right: {
-                        fb: "모든 플랫폼 리뷰 모니터링 + 즉시 답변",
-                        medical: "온라인 평점 관리 + 환자 후기 적극 수집",
-                        fitness: "SNS 후기 관리 + 성과 사례 적극 홍보"
-                    }
-                },
-                options: [
-                    "온라인 평판 관리를 하지 않는다",
-                    "가끔 리뷰를 확인한다",
-                    "부정적 리뷰에만 대응한다",
-                    "정기적으로 평판을 관리한다",
-                    "실시간 모니터링과 즉시 대응 시스템 운영"
-                ]
-            }
-        ],
-        industries: {
-            fb: [
-                // F&B 업종별 질문들 (기존 내용 그대로)
-                {
-                    question: "우리 매장의 시그니처 메뉴나 특화 상품이 있다.",
-                    example: {
-                        wrong: "우리 집은 모든 메뉴가 다 맛있다",
-                        right: "할머니 레시피 김치찌개 + 비법 양념장"
-                    },
-                    options: [
-                        "특화 상품이 없다",
-                        "일반적인 인기 메뉴만 있다",
-                        "어느 정도 특색있는 메뉴가 있다",
-                        "차별화된 시그니처 메뉴가 있다",
-                        "고객이 꼭 먹으러 오는 대표 메뉴가 있다"
-                    ]
-                },
-                {
-                    question: "우리 매장의 타겟 고객층이 명확하게 정의되어 있다.",
-                    example: {
-                        wrong: "누구나 와도 된다",
-                        right: "직장인 점심식사, 20-30대 여성 브런치"
-                    },
-                    options: [
-                        "타겟이 전혀 정해지지 않았다",
-                        "나이대 정도만 생각한다",
-                        "어느 정도 고객층은 파악하고 있다",
-                        "명확한 타겟 고객이 있다",
-                        "타겟 고객에 최적화된 매장 운영"
-                    ]
-                },
-                {
-                    question: "테이블 회전율 최적화를 위한 체계적 관리를 한다.",
-                    example: {
-                        wrong: "바쁠 때만 서두른다",
-                        right: "시간대별 평균 식사시간 분석 + 예약 시스템 연동"
-                    },
-                    options: [
-                        "관리하지 않는다",
-                        "바쁜 시간만 신경쓴다",
-                        "기본적인 시간 관리는 한다",
-                        "체계적으로 회전율을 관리한다",
-                        "예약 시스템과 연동된 최적화 운영"
-                    ]
-                },
-                {
-                    question: "단골손님의 선호 메뉴와 주문 패턴을 파악한다.",
-                    example: {
-                        wrong: "자주 오는 손님을 기억한다",
-                        right: "고객별 선호 메뉴 + 방문 시간대 + 동반자 패턴 기록"
-                    },
-                    options: [
-                        "전혀 파악하지 못한다",
-                        "자주 오는 손님 정도만 기억",
-                        "일부 단골의 선호도 파악",
-                        "주요 단골들의 패턴 관리",
-                        "모든 고객의 주문 이력 데이터화"
-                    ]
-                },
-                {
-                    question: "계절별, 시간대별 메뉴 구성과 가격 전략이 있다.",
-                    example: {
-                        wrong: "메뉴는 항상 동일하다",
-                        right: "여름 냉메뉴 + 점심 세트메뉴 + 저녁 술안주 메뉴"
-                    },
-                    options: [
-                        "메뉴 구성 변화가 없다",
-                        "계절 메뉴 정도만 있다",
-                        "시간대별 메뉴를 일부 운영",
-                        "계절/시간별 전략적 메뉴 구성",
-                        "데이터 기반 최적화된 메뉴 전략"
-                    ]
-                },
-                {
-                    question: "여러 플랫폼의 리뷰와 평점을 체계적으로 관리한다.",
-                    example: {
-                        wrong: "가끔 리뷰를 확인한다",
-                        right: "매일 리뷰 모니터링 + 즉시 답변 + 개선사항 반영"
-                    },
-                    options: [
-                        "관리하지 않는다",
-                        "가끔 확인만 한다",
-                        "부정적 리뷰에만 대응",
-                        "정기적으로 모니터링하고 대응",
-                        "리뷰 관리 전담 시스템 운영"
-                    ]
-                },
-                {
-                    question: "포장, 배달 등 채널별 수익성을 정확히 파악한다.",
-                    example: {
-                        right: "플랫폼 수수료 + 포장재 + 배달비 + 시간 비용 종합 분석"
-                    },
-                    options: [
-                        "파악하지 않는다",
-                        "매출만 확인한다",
-                        "기본적인 수익률 계산",
-                        "채널별 수익성 분석",
-                        "실시간 채널별 수익성 최적화"
-                    ]
-                },
-                {
-                    question: "고객의 재방문을 유도하는 특별한 프로그램이 있다.",
-                    example: {
-                        right: "방문 주기별 맞춤 쿠폰 + 생일 특별 메뉴 + VIP 전용 이벤트"
-                    },
-                    options: [
-                        "특별한 프로그램이 없다",
-                        "간단한 적립 제도만 있다",
-                        "기본적인 멤버십 운영",
-                        "차별화된 리워드 프로그램",
-                        "개인화된 혜택 자동 제공 시스템"
-                    ]
-                },
-                {
-                    question: "식재료 원가 관리와 메뉴 가격 책정이 체계적이다.",
-                    example: {
-                        right: "재료비 + 인건비 + 임대료 + 목표 수익률 종합 계산"
-                    },
-                    options: [
-                        "감각적으로 책정한다",
-                        "기본적인 원가만 계산",
-                        "주요 메뉴의 원가 관리",
-                        "모든 메뉴의 정확한 원가 관리",
-                        "실시간 원가 변동 반영 시스템"
-                    ]
-                },
-                {
-                    question: "매장 분위기와 서비스가 타겟 고객에게 최적화되어 있다.",
-                    example: {
-                        right: "30대 직장인 점심식사를 위한 빠른 주문/결제 + 조용한 환경"
-                    },
-                    options: [
-                        "특별한 컨셉이 없다",
-                        "기본적인 인테리어만 있다",
-                        "어느 정도 컨셉은 있다",
-                        "타겟에 맞는 분위기 연출",
-                        "고객 여정 전체가 최적화되어 있다"
-                    ]
-                },
-                {
-                    question: "지역/상권 특성을 반영한 차별화된 메뉴나 서비스가 있다.",
-                    example: {
-                        right: "지역/상권을 반영한 메뉴 네이밍 + 동네 주민 취향 반영 메뉴"
-                    },
-                    options: [
-                        "반영할 생각을 해본 적이 없다",
-                        "반영할 생각만 해봤다",
-                        "반영할 시도는 해봤다",
-                        "지역/상권의 특성을 고려한 메뉴가 있다",
-                        "지역/상권 대표 맛집으로 인정받는 수준"
-                    ]
-                },
-                {
-                    question: "직원 서비스 교육과 고객 응대 매뉴얼이 체계화되어 있다.",
-                    example: {
-                        right: "상황별 응대 매뉴얼 + 정기 교육 + 서비스 평가 시스템"
-                    },
-                    options: [
-                        "교육 시스템이 없다",
-                        "기본적인 업무 교육만",
-                        "서비스 교육은 간헐적으로",
-                        "정기적인 서비스 교육 실시",
-                        "표준화된 서비스 매뉴얼과 지속 교육"
-                    ]
-                },
-                {
-                    question: "SNS와 고객 유입 목적의 온라인 마케팅을 체계적으로 운영한다.",
-                    example: {
-                        right: "콘텐츠 달력 + 타겟별 맞춤 광고 + 성과 분석"
-                    },
-                    options: [
-                        "하지 않는다",
-                        "가끔 SNS에 포스팅",
-                        "정기적인 SNS 운영",
-                        "체계적인 콘텐츠 마케팅",
-                        "데이터 기반 통합 디지털 마케팅"
-                    ]
-                },
-                {
-                    question: "고객의 대기시간을 최소화하는 시스템이 있다.",
-                    example: {
-                        right: "주문량 예측 + 조리시간 예측 + 대기 알림 시스템"
-                    },
-                    options: [
-                        "대기시간 관리를 하지 않는다",
-                        "바쁜 시간에만 신경쓴다",
-                        "기본적인 대기 관리",
-                        "효율적인 대기 관리 시스템",
-                        "예약과 대기를 통합 관리하는 시스템"
-                    ]
-                },
-                {
-                    question: "매장의 브랜드 아이덴티티가 명확하고 일관성 있게 표현된다.",
-                    example: {
-                        right: "모든 접점에서 일관된 브랜드 경험"
-                    },
-                    options: [
-                        "브랜드 아이덴티티가 없다",
-                        "기본적인 로고나 간판만",
-                        "어느 정도 통일된 디자인",
-                        "명확한 브랜드 컨셉과 표현",
-                        "모든 접점에서 일관된 브랜드 경험"
-                    ]
-                }
-            ],
-            medical: [
-                // 의료 업종별 질문들
-                {
-                    question: "우리 병원의 진료 분야는 시장에서 뚜렷하게 포지셔닝되어 있다.",
-                    example: {
-                        wrong: "내과, 통증 클리닉",
-                        right: "30~50대 사무직 대상 '거북목+체형 불균형' 치료 전문 병원"
-                    },
-                    options: [
-                        "어떤 전문인지 애매하거나 없다",
-                        "진료과목은 있지만 브랜딩되지 않았다",
-                        "전문성은 있으나 고객은 잘 모른다",
-                        "홍보·브랜딩으로 인지도가 있다",
-                        "고객이 우리 병원을 분야 대표로 인식한다"
-                    ]
-                },
-                {
-                    question: "진료 전 고객 정보를 기반으로 맞춤 진료가 이루어진다.",
-                    example: {
-                        wrong: "그냥 접수하고 진료",
-                        right: "사전 문진표 작성+맞춤 진료 진행"
-                    },
-                    options: [
-                        "진료 시작 전 별다른 준비 없음",
-                        "문진표 작성만 한다",
-                        "사전정보 확인은 있으나 단순함",
-                        "고객 정보 분석 후 진료 진행함",
-                        "고객이 맞춤 진료를 체감할 수 있음"
-                    ]
-                },
-                {
-                    question: "고객의 치료 과정이 체계적이고 단계적으로 제시된다.",
-                    example: {
-                        wrong: "진료 후 끝",
-                        right: "1차 진료 → 2주 경과 확인 → 재활 가이드 → 예방법 교육"
-                    },
-                    options: [
-                        "1회 진료로 끝나는 경우가 많다",
-                        "필요시에만 추가 진료 제안한다",
-                        "대략적인 치료 계획은 있다",
-                        "체계적인 치료 과정을 제시한다",
-                        "고객이 전체 여정을 이해하고 따라간다"
-                    ]
-                },
-                {
-                    question: "진료 후 사후관리와 추가 케어 시스템이 운영된다.",
-                    example: {
-                        wrong: "진료 완료 후 별도의 연락 없음",
-                        right: "3일 후 컨디션 확인 + 1주 후 경과 체크 + 생활습관 관리 안내"
-                    },
-                    options: [
-                        "진료 완료 후 연락 없음",
-                        "문제 있을 때만 재방문 안내",
-                        "간헐적으로 안부 연락",
-                        "정기적인 사후관리 연락",
-                        "체계화된 단계별 사후관리 프로그램"
-                    ]
-                },
-                {
-                    question: "고객에게 동일한 문제가 재발하지 않도록 하는 예방 솔루션을 제공한다.",
-                    example: {
-                        right: "개인별 예방 운동법 + 생활습관 개선 가이드 + 정기 점검 일정"
-                    },
-                    options: [
-                        "예방에 대한 안내가 거의 없다",
-                        "일반적인 주의사항만 안내",
-                        "간단한 예방법 정도 제공",
-                        "개인별 맞춤 예방 솔루션 제공",
-                        "예방중심 통합관리 프로그램 운영"
-                    ]
-                },
-                {
-                    question: "고객이 치료 과정에서 자신의 상태 변화를 명확히 인식할 수 있다.",
-                    example: {
-                        right: "치료 전후 비교 데이터 + 객관적 지표 + 시각적 자료 제공"
-                    },
-                    options: [
-                        "주관적 느낌에만 의존",
-                        "의사 설명 정도만 있음",
-                        "간단한 비교는 가능함",
-                        "객관적 데이터로 변화 확인 가능",
-                        "고객이 변화를 수치와 시각으로 체감"
-                    ]
-                },
-                {
-                    question: "우리만의 독특한 치료법이나 접근 방식이 있다.",
-                    example: {
-                        right: "특화된 치료 + 맞춤 처방 + 생활패턴 교정법"
-                    },
-                    options: [
-                        "일반적인 치료만 제공",
-                        "약간의 차별점은 있음",
-                        "특정 분야에서 독자적 방법 있음",
-                        "여러 분야에서 차별화된 접근법",
-                        "고객이 우리만의 독특함을 선택 이유로 말함"
-                    ]
-                },
-                {
-                    question: "대기시간 최소화와 예약 시스템이 효율적으로 운영된다.",
-                    example: {
-                        right: "실시간 대기현황 + 예약 시간 준수 + 대기시간 예측 안내"
-                    },
-                    options: [
-                        "대기시간 관리가 안 됨",
-                        "기본적인 예약만 받음",
-                        "어느 정도 시간 관리는 함",
-                        "효율적인 예약 시스템 운영",
-                        "고객이 대기시간 예측 가능한 시스템"
-                    ]
-                },
-                {
-                    question: "진료비와 치료 과정의 투명성이 보장된다.",
-                    example: {
-                        right: "사전 치료계획 + 비용 안내 + 단계별 필요 비용 투명 공개"
-                    },
-                    options: [
-                        "비용에 대한 사전 안내 없음",
-                        "진료 후 비용 안내",
-                        "대략적인 비용은 미리 안내",
-                        "상세한 비용 구조 사전 설명",
-                        "모든 과정과 비용이 완전 투명"
-                    ]
-                },
-                {
-                    question: "고객과의 소통이 원활하고 충분한 설명이 제공된다.",
-                    example: {
-                        right: "환자가 이해할 때까지 설명 + 질문 시간 충분히 제공"
-                    },
-                    options: [
-                        "설명이 부족하거나 형식적",
-                        "기본적인 설명만 제공",
-                        "질문하면 어느 정도 답변",
-                        "충분하고 이해하기 쉬운 설명",
-                        "고객이 완전히 이해하고 납득할 때까지 소통"
-                    ]
-                },
-                {
-                    question: "타 병원과 차별화되는 서비스나 부가가치를 제공한다.",
-                    example: {
-                        right: "홈케어 가이드 및 재발 방지 콘텐츠 제공"
-                    },
-                    options: [
-                        "차별화 서비스가 없음",
-                        "약간의 부가 서비스",
-                        "일부 특별한 서비스 제공",
-                        "다양한 부가가치 서비스",
-                        "고객이 부가가치 때문에 선택하는 수준"
-                    ]
-                },
-                {
-                    question: "치료 효과에 대한 객관적 데이터를 관리하고 활용한다.",
-                    example: {
-                        right: "치료 전후 데이터 + 효과 분석 + 개선점 도출"
-                    },
-                    options: [
-                        "데이터 관리를 안 함",
-                        "기본적인 진료 기록만",
-                        "일부 데이터는 관리함",
-                        "체계적인 데이터 관리",
-                        "데이터 기반 치료 효과 분석 활용"
-                    ]
-                },
-                {
-                    question: "병원 내 시설과 장비가 고객 경험에 최적화되어 있다.",
-                    example: {
-                        right: "편안한 대기공간 + 최신 장비"
-                    },
-                    options: [
-                        "기본적인 시설만 있음",
-                        "필요한 장비는 갖춰져 있음",
-                        "어느 정도 쾌적한 환경",
-                        "고객 중심으로 설계된 공간",
-                        "모든 시설이 고객 경험 극대화에 맞춰짐"
-                    ]
-                },
-                {
-                    question: "온라인과 오프라인 고객 관리가 통합적으로 이루어진다.",
-                    example: {
-                        right: "온라인 예약 + 모바일 상담 + 온라인 건강관리 콘텐츠"
-                    },
-                    options: [
-                        "오프라인 관리만",
-                        "기본적인 온라인 예약 정도",
-                        "일부 온라인 서비스 제공",
-                        "온오프라인 연계 서비스",
-                        "완전 통합된 디지털 고객관리 시스템"
-                    ]
-                },
-                {
-                    question: "고객별 맞춤형 자동화 관리 시스템이 구축되어 있다.",
-                    example: {
-                        right: "치료 일정 자동 알림 + 맞춤 케어 메시지 + 이탈 예측 기반 자동화 메시지/케어 운영"
-                    },
-                    options: [
-                        "자동화 시스템 전혀 없음",
-                        "기본적인 예약 알림 정도",
-                        "일부 자동화 서비스",
-                        "고객별 맞춤 자동화 일부 운영",
-                        "이탈 예측 기반 자동화 메시지/케어 운영"
-                    ]
-                }
-            ],
-            fitness: [
-                // 피트니스 업종별 질문들
-                {
-                    question: "우리 센터는 명확한 타겟 고객을 대상으로 서비스를 설계하고 있다.",
-                    example: {
-                        right: "허리 통증 겪는 30~50대 직장 여성 대상 체형 교정 필라테스"
-                    },
-                    options: [
-                        "특정 대상 없이 모두에게 마케팅 중",
-                        "연령대 정도만 구분함",
-                        "고객 유형은 있지만 수업이나 메시지에 반영되지 않음",
-                        "특정 타겟 중심으로 콘텐츠와 수업이 구성됨",
-                        "고객도 스스로 '나 같은 사람을 위한 센터'라 느낀다"
-                    ]
-                },
-                {
-                    question: "우리가 제공하는 수업은 다른 센터에서 쉽게 따라할 수 없는 강점이 있다.",
-                    example: {
-                        right: "족저근막염 전문 회복 운동, 출산 후 골반 회복 루틴"
-                    },
-                    options: [
-                        "대부분 센터와 유사한 구성",
-                        "차별화를 시도했지만 아직 미약함",
-                        "특정 클래스에서 차별성 있음",
-                        "전반적인 커리큘럼이 차별화되어 있음",
-                        "고객이 우리 수업의 독보적 특성을 설명할 수 있음"
-                    ]
-                },
-                {
-                    question: "고객의 현재 신체 상태와 생활 습관을 정확히 진단하는 프로세스가 있다.",
-                    example: {
-                        right: "문진표+자세 체크+생활 루틴 인터뷰 후 분석 리포트 제공"
-                    },
-                    options: [
-                        "운동 전 별다른 진단 없음",
-                        "간단한 체크리스트만 있음",
-                        "측정은 하지만 수업에 반영되지 않음",
-                        "수업 설계에 진단 결과가 반영됨",
-                        "진단 결과로 고객이 현재 상태를 명확히 인식함"
-                    ]
-                },
-                {
-                    question: "고객의 운동 목표는 단순히 체중이나 근육량이 아니라 감정적 니즈까지 포함한다.",
-                    example: {
-                        right: "허리 통증 없이 퇴근하고 싶어요, 드레스를 입을 때 당당해지고 싶어요"
-                    },
-                    options: [
-                        "단순히 체중 감량만 목표로 설정",
-                        "체형 개선 정도만 강조함",
-                        "목표 설정은 있지만 감정적인 측면은 부족함",
-                        "감정 포함 목표 설정을 시도하고 있음",
-                        "고객의 감정까지 구체적으로 반영된 목표를 설정함"
-                    ]
-                },
-                {
-                    question: "고객의 운동 목표는 구체적이고 수치+행동+감정이 포함된 형태로 기록된다.",
-                    example: {
-                        right: "8주 내 허벅지 둘레 -3cm + 근무 시 목 통증 제로"
-                    },
-                    options: [
-                        "목표 설정 자체가 없음",
-                        "체중/근육량 중심 수치만 기록됨",
-                        "일부 행동 기반 목표 반영됨",
-                        "목표에 감정/습관 변화도 포함됨",
-                        "고객이 목표를 완전히 이해하고 동기부여됨"
-                    ]
-                },
-                {
-                    question: "운동 진행 중 주간/월간 단위로 피드백을 제공하는 시스템이 있다.",
-                    example: {
-                        right: "주간 체크 메시지 + 월간 바디 리포트 + 맞춤 제안"
-                    },
-                    options: [
-                        "피드백 전혀 없음",
-                        "트레이너 구두 피드백만 있음",
-                        "비정기적인 피드백 있음",
-                        "정기적인 피드백이 시스템화됨",
-                        "피드백 결과에 따라 수업 내용이 조정됨"
-                    ]
-                },
-                {
-                    question: "고객의 신체뿐 아니라 감정, 스트레스, 수면, 식습관 등 다양한 요소가 수업에 반영된다.",
-                    example: {
-                        right: "야간 스트레칭 루틴, 업무스트레스 완화 루틴 포함"
-                    },
-                    options: [
-                        "신체만 고려한 수업 구성",
-                        "피드백 시 언급되지만 수업 반영은 약함",
-                        "트레이너에 따라 간헐적 반영됨",
-                        "특정 수업에서 감정/습관 요소 반영됨",
-                        "전반적인 커리큘럼에서 감정·습관 요소가 일관되게 녹아 있음"
-                    ]
-                },
-                {
-                    question: "수업 중 제공되는 설명이나 운동 설계는 전문성을 기반으로 한다.",
-                    example: {
-                        right: "해부학적 설명 + 일상활용 가이드 동시 제공"
-                    },
-                    options: [
-                        "설명 거의 없음",
-                        "단순한 구호 위주 설명",
-                        "일부 동작에만 전문 해설 제공됨",
-                        "전반적으로 이해하기 쉬운 설명 제공됨",
-                        "고객이 배우는 느낌을 받고, 질문을 자주 함"
-                    ]
-                },
-                {
-                    question: "회원이 자신의 변화 과정을 스스로 체감하고 인식할 수 있도록 안내하고 있다.",
-                    example: {
-                        right: "비포-애프터 사진, 점검 리포트 제공"
-                    },
-                    options: [
-                        "변화 과정을 전달하지 않음",
-                        "고객 스스로 느끼는 데 의존",
-                        "변화가 있을 때만 설명",
-                        "정기적 설명 있지만 시각적 전달 부족",
-                        "고객이 변화 데이터를 보고 동기부여 받음"
-                    ]
-                },
-                {
-                    question: "수업 이후에도 고객과의 연결이 유지되는 사후관리 콘텐츠/피드백이 운영된다.",
-                    example: {
-                        right: "수업 요약 메시지 전송, 3일 뒤 맞춤 피드백 메시지 자동 전송"
-                    },
-                    options: [
-                        "수업 후 아무 접점 없음",
-                        "예약 안내 정도의 알림만 보냄",
-                        "정기성은 없지만 피드백 제공",
-                        "일부 고객 대상으로 수업 연계 콘텐츠 제공",
-                        "전 회원 대상 사후 피드백/콘텐츠 자동 운영 중"
-                    ]
-                },
-                {
-                    question: "센터가 전달하는 마케팅 메시지는 강점과 타겟에 대해 명확하고 일관성 있다.",
-                    example: {
-                        right: "모든 채널에 일관되게 표현됨"
-                    },
-                    options: [
-                        "콘텐츠마다 포지션이 달라 고객 혼란",
-                        "강점은 있지만 일관성이 없음",
-                        "일관성 있게 표현하려 시도 중",
-                        "모든 채널에서 동일 메시지 사용",
-                        "고객이 그 메시지를 스스로 표현함"
-                    ]
-                },
-                {
-                    question: "고객도 우리가 어떤 분야에 전문화되어 있는지 정확히 인지하고 있다.",
-                    example: {
-                        right: "후기나 입소문에서 특정 문제 해결 전문가로 언급됨"
-                    },
-                    options: [
-                        "고객이 우리 강점을 말하지 못함",
-                        "강점은 있지만 고객 인식 낮음",
-                        "고객 중 일부는 이해함",
-                        "후기나 대화에서 강점이 자주 언급됨",
-                        "신규 고객이 강점 듣고 찾아옴"
-                    ]
-                },
-                {
-                    question: "회원별 운동 결과/과정 데이터를 수치화하고 관리한다.",
-                    example: {
-                        right: "운동 출석률 / 체형 변화 점수 / 목표 달성율"
-                    },
-                    options: [
-                        "데이터를 수집하지 않음",
-                        "수기로 기록하지만 체계화 안됨",
-                        "일부 고객만 기록 중",
-                        "전체 고객 대상 수치화 기록 운영",
-                        "고객도 내 데이터를 인지하고 활용함"
-                    ]
-                },
-                {
-                    question: "수업 준비나 마케팅 전략에 실제 데이터가 활용되고 있다.",
-                    example: {
-                        right: "이탈고객 분석 → 루틴 개선, 상위 고객 분석 → 마케팅 타겟 조정"
-                    },
-                    options: [
-                        "직관에 따라 수업 진행함",
-                        "고객 피드백은 있지만 반영 안 됨",
-                        "고객 피드백 부분적 참고만 함",
-                        "데이터 기반 수업 구성 일부 진행 중",
-                        "고객 피드백 기반 자동화된 분석 활용 중"
-                    ]
-                },
-                {
-                    question: "회원 관리, 수업 안내, 재방문 유도 등 전반에 자동화된 시스템이 적용되어 있다.",
-                    example: {
-                        right: "3일 미참여 시 자동 리마인드 메시지, 목표별 케어 메시지 자동 전송"
-                    },
-                    options: [
-                        "전혀 자동화되어 있지 않음",
-                        "수기 관리 위주로 운영",
-                        "예약만 자동 시스템 있음",
-                        "수업·알림·이탈 관리 일부 자동화됨",
-                        "고객별 상황에 따라 전방위 자동화 시스템 구축"
-                    ]
-                }
-            ]
-        }
-            };
+                    <!-- Form Card -->
+                    <div class="form-card">
+                        <div class="text-center mb-4">
+                            <i data-feather="briefcase" class="form-icon"></i>
+                            <h2 class="form-title">업종을 선택해주세요</h2>
+                            <p class="text-muted">귀하의 사업 분야를 선택하시면 해당 업종에 특화된 진단을 받으실 수 있습니다.</p>
+                        </div>
 
-// 점수별 상세 진단 정보
-const detailedGradeInfo = {
-        0: {
-            title: "🔥 치열 경쟁",
-            class: "grade-danger",
-            status: "전략 재설계 필요 - 경쟁업체 대비 어느 정도 차별화가 이루어져 있고 기본적인 고객 관리가 되고 있습니다. 시스템을 더욱 정교화하여 시장 점유율을 확대할 때입니다.",
-            improvements: [
-                "고객 정의부터 다시 시작해야 합니다",
-                "기본적인 고객 관리 시스템 구축이 필요합니다",
-                "최소한의 차별화 포인트라도 만들어야 합니다",
-                "고객 데이터 수집과 분석 체계를 갖춰야 합니다",
-                "재방문 유도를 위한 기본 시스템을 구축하세요"
-            ],
-            actions: [
-                "타겟 고객을 명확히 정의하고 그들의 니즈를 파악하세요",
-                "고객 관리 도구를 도입하여 기본 데이터부터 수집하세요",
-                "경쟁업체 분석을 통해 차별화 포인트를 찾으세요",
-                "고객 재방문을 위한 간단한 혜택 시스템을 만드세요",
-                "직원 서비스 교육부터 체계화하세요"
-            ]
-        },
-        1: {
-            title: "⚠️ 독점 준비",
-            class: "grade-warning", 
-            status: "기본기 부족, 시스템화 필요 - 기본적인 시스템은 갖춰져 있으나 체계적인 고객 관리와 차별화가 부족합니다. 단계적 개선을 통해 경쟁력을 높여야 합니다.",
-            improvements: [
-                "고객 세분화와 맞춤형 서비스가 필요합니다",
-                "데이터 기반 의사결정 체계를 구축해야 합니다",
-                "고객 재방문 주기 관리가 체계화되어야 합니다",
-                "서비스 차별화 포인트를 명확히 해야 합니다",
-                "피드백 수집과 개선 프로세스가 필요합니다"
-            ],
-            actions: [
-                "고객 등급별 차별화된 서비스를 설계하세요",
-                "고객 방문 패턴을 분석하여 맞춤형 마케팅을 시작하세요",
-                "고객 만족도 조사를 정기적으로 실시하세요",
-                "경쟁업체 대비 차별화 포인트를 강화하세요",
-                "직원 교육을 통해 서비스 품질을 일정하게 유지하세요"
-            ]
-        },
-        2: {
-            title: "📈 독점 시작",
-            class: "grade-info",
-            status: "핵심 구조 있으나 자동화 미흡 - 경쟁업체 대비 어느 정도 차별화가 이루어져 있고 기본적인 고객 관리가 되고 있습니다. 시스템을 더욱 정교화하여 시장 점유율을 확대할 때입니다.",
-            improvements: [
-                "고객 생애가치 관리가 더욱 정교해져야 합니다",
-                "자동화된 고객 관리 시스템 도입이 필요합니다",
-                "데이터 분석 역량을 강화해야 합니다",
-                "브랜드 아이덴티티를 더욱 명확히 해야 합니다",
-                "고객 경험의 일관성을 높여야 합니다"
-            ],
-            actions: [
-                "CRM 시스템을 도입하여 고객 관리를 자동화하세요",
-                "고객별 맞춤형 마케팅 캠페인을 설계하세요",
-                "브랜드 가이드라인을 만들어 일관된 경험을 제공하세요",
-                "고객 여정을 매핑하고 각 단계를 최적화하세요",
-                "리뷰와 평점 관리를 체계화하세요"
-            ]
-        },
-        3: {
-            title: "🚀 독점 근접",
-            class: "grade-success",
-            status: "약한 고리 개선 시 독점 가능 - 시장에서 강력한 경쟁력을 갖추고 고객들이 당신을 선택하는 이유가 명확합니다. 이제 시장 독점을 위한 마지막 단계에 접어들었습니다.",
-            improvements: [
-                "완전 자동화된 고객 관리 시스템 구축",
-                "예측 분석을 통한 선제적 고객 관리",
-                "개인화 수준을 극대화해야 합니다",
-                "고객 커뮤니티 구축과 생태계 확장",
-                "지속적 혁신을 위한 R&D 투자"
-            ],
-            actions: [
-                "AI 기반 고객 행동 예측 시스템을 도입하세요",
-                "고객 커뮤니티를 구축하여 브랜드 충성도를 높이세요",
-                "개인화된 상품/서비스 추천 시스템을 구축하세요",
-                "시장 확장을 위한 새로운 채널을 개발하세요",
-                "고객 성공 팀을 구성하여 장기 관계를 관리하세요"
-            ]
-        },
-        4: {
-            title: "🏆 독점 완성",
-            class: "grade-excellent",
-            status: "확장 전략 고려할 단계 - 축하합니다! 당신은 해당 시장에서 독점적 지위를 확보했습니다. 고객들이 다른 대안을 고려하지 않고 당신을 선택하는 구조가 완성되었습니다.",
-            improvements: [
-                "시장 지배력 유지를 위한 지속적 혁신",
-                "새로운 시장 개척과 사업 확장 검토",
-                "고객 평생가치 극대화 전략 고도화",
-                "업계 스탠다드 설정자로서의 리더십 발휘",
-                "지속 가능한 성장을 위한 조직 역량 강화"
-            ],
-            actions: [
-                "새로운 시장이나 고객 세그먼트로 확장하세요",
-                "업계의 베스트 프랙티스를 만들어 리더십을 공고히 하세요",
-                "고객과의 관계를 파트너십 수준으로 발전시키세요",
-                "지속적 혁신을 위한 조직 문화를 구축하세요",
-                "사회적 가치 창출을 통해 브랜드 가치를 높이세요"
-            ]
-        }
-            };
+                        <div class="mb-4">
+                            <div class="industry-selection">
+                                <div class="industry-option mb-3" onclick="selectIndustry('restaurant')">
+                                    <input type="radio" name="industry" value="restaurant" id="restaurant" class="d-none">
+                                    <label for="restaurant" class="industry-label">
+                                        <div class="industry-content">
+                                            <div class="industry-icon">
+                                                <i data-feather="coffee"></i>
+                                            </div>
+                                            <div class="industry-text">
+                                                <h5>음식점</h5>
+                                                <p class="mb-0 text-muted">레스토랑, 한식, 양식, 일식 등</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
 
-// 점수에 따른 등급 결정 함수
-            function getGradeByScore(percentage) {
-        if (percentage >= 0 && percentage <= 20) return 0;
-        if (percentage >= 21 && percentage <= 40) return 1;
-        if (percentage >= 41 && percentage <= 60) return 2;
-        if (percentage >= 61 && percentage <= 80) return 3;
-        if (percentage >= 81 && percentage <= 100) return 4;
-        return 0;
-            }
+                                <div class="industry-option mb-3" onclick="selectIndustry('cafe')">
+                                    <input type="radio" name="industry" value="cafe" id="cafe" class="d-none">
+                                    <label for="cafe" class="industry-label">
+                                        <div class="industry-content">
+                                            <div class="industry-icon">
+                                                <i data-feather="coffee"></i>
+                                            </div>
+                                            <div class="industry-text">
+                                                <h5>카페</h5>
+                                                <p class="mb-0 text-muted">커피전문점, 디저트카페, 브런치카페 등</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
 
-// 답변 기반 개인화 분석 함수
-            function analyzeAnswers(answers, questions) {
-        const improvements = [];
-        const strategies = [];
-        const weakAreas = [];
-        const strongAreas = [];
+                                <div class="industry-option mb-3" onclick="selectIndustry('fitness')">
+                                    <input type="radio" name="industry" value="fitness" id="fitness" class="d-none">
+                                    <label for="fitness" class="industry-label">
+                                        <div class="industry-content">
+                                            <div class="industry-icon">
+                                                <i data-feather="zap"></i>
+                                            </div>
+                                            <div class="industry-text">
+                                                <h5>피트니스</h5>
+                                                <p class="mb-0 text-muted">헬스장, 요가, 필라테스, 크로스핏 등</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
-        // 답변 분석하여 개인화된 피드백 생성
-        Object.entries(answers).forEach(([questionIndex, score]) => {
-            const question = questions[parseInt(questionIndex)];
-            if (score <= 2) {
-                weakAreas.push(question.question);
-                
-                // 업종별 맞춤 분석
-                if (selectedIndustry === 'fb') {
-                    if (question.question.includes('고객') && question.question.includes('정의')) {
-                        improvements.push('타겟 고객을 구체적으로 정의하고 세분화해야 합니다');
-                        strategies.push('고객의 상황과 니즈를 중심으로 페르소나를 재설계 해보세요');
-                    }
-                    if (question.question.includes('차별화') || question.question.includes('시그니처')) {
-                        improvements.push('경쟁업체와 구별되는 독특한 메뉴나 서비스가 필요합니다');
-                        strategies.push('지역/상권 특성과 고객 니즈를 반영한 시그니처 메뉴를 개발해 보세요');
-                    }
-                    if (question.question.includes('재방문') || question.question.includes('단골')) {
-                        improvements.push('고객 재방문을 유도하는 특별한 이유를 만들어야 합니다');
-                        strategies.push('고객 선호도를 기반으로 맞춤 서비스와 리워드 프로그램을 구축해 보세요');
-                    }
-                } else if (selectedIndustry === 'medical') {
-                    if (question.question.includes('포지셔닝') || question.question.includes('전문')) {
-                        improvements.push('병원의 전문 분야를 명확히 하고 브랜딩해야 합니다');
-                        strategies.push('특정 질병/질환이나 연령대에 특화된 전문 병원으로의 포지셔닝을 고민해 보세요');
-                    }
-                    if (question.question.includes('진료') && question.question.includes('맞춤')) {
-                        improvements.push('환자별 맞춤형 진료 프로세스가 필요합니다');
-                        strategies.push('사전 문진과 검사를 통한 개인별 치료 계획을 수립하고 환자와 공유해 보세요');
-                    }
-                    if (question.question.includes('사후관리') || question.question.includes('예방')) {
-                        improvements.push('치료 후 지속적인 관리 시스템이 필요합니다');
-                        strategies.push('단계별 사후관리 프로그램과 예방 솔루션을 제공해 보세요');
-                    }
-                } else if (selectedIndustry === 'fitness') {
-                    if (question.question.includes('타겟') || question.question.includes('고객')) {
-                        improvements.push('명확한 타겟 고객 정의와 맞춤형 서비스 설계가 필요합니다');
-                        strategies.push('특정 고민을 가진 고객군을 타겟으로 전문화된 프로그램을 개발해 보세요');
-                    }
-                    if (question.question.includes('차별화') || question.question.includes('독특')) {
-                        improvements.push('다른 센터와 구별되는 특별한 운동 프로그램이 필요합니다');
-                        strategies.push('특정 문제 해결에 특화된 전문 프로그램을 개발해 보세요');
-                    }
-                    if (question.question.includes('진단') || question.question.includes('측정')) {
-                        improvements.push('체계적인 신체 진단과 상태 분석 프로세스가 필요합니다');
-                        strategies.push('과학적 측정과 분석을 통한 개인별 운동 처방을 제공해 보세요');
-                    }
-                }
-            } else if (score >= 4) {
-                strongAreas.push(question.question);
-            }
-        });
-
-        return {
-            weakAreas,
-            strongAreas,
-            improvements: improvements.slice(0, 5), // 최대 5개
-            strategies: strategies.slice(0, 5) // 최대 5개
-        };
-            }
-
-// 업종 선택
-            function selectIndustry(industry) {
-        selectedIndustry = industry;
-        
-        // 버튼 상태 업데이트
-        document.querySelectorAll('.industry-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        // 설문 문항 생성
-        generateQuestions();
-        
-        // UI 업데이트
-        document.getElementById('industrySelection').classList.add('hidden');
-        document.getElementById('progressSection').classList.remove('hidden');
-        document.getElementById('submitSection').classList.remove('hidden');
-            }
-
-// 설문 문항 생성
-            function generateQuestions() {
-        const questionsContainer = document.getElementById('questionsContainer');
-        questionsContainer.innerHTML = '';
-        
-        // 공통 문항 + 업종별 문항 결합
-        currentQuestions = [...surveyData.common, ...surveyData.industries[selectedIndustry]];
-        
-        currentQuestions.forEach((question, index) => {
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'question-container';
-            
-            // 예시 처리: 공통 질문은 업종별 예시, 업종별 질문은 단일 예시
-            let rightExample = question.example.right;
-            if (typeof rightExample === 'object' && rightExample[selectedIndustry]) {
-                rightExample = rightExample[selectedIndustry];
-            } else if (typeof rightExample === 'object') {
-                // 객체인데 해당 업종이 없으면 첫 번째 값 사용
-                rightExample = Object.values(rightExample)[0];
-            }
-            
-            questionDiv.innerHTML = `
-                <div class="question-title">Q${index + 1}. ${question.question}</div>
-                <div class="example-section">
-                    <div class="example-title">💡 예시</div>
-                    <div class="example-content">
-                        ${question.example.wrong ? `<div class="example-wrong">❌ ${question.example.wrong}</div>` : ''}
-                        <div class="example-right">✅ ${rightExample}</div>
+                        <div class="text-center">
+                            <button id="industryNext" class="btn btn-gradient" onclick="nextToPersona()" disabled>
+                                다음 단계
+                                <i data-feather="arrow-right" class="ms-2"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="options-grid">
-                    ${question.options.map((option, optionIndex) => `
-                        <button class="option-btn" data-question="${index}" data-value="${optionIndex + 1}">
-                            ${optionIndex + 1}점<br>${option}
+            </div>
+        </div>
+
+        <!-- Step 3: Persona Selection -->
+        <div id="step-persona" class="step-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <!-- Progress Indicator -->
+                    <div class="progress-section mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 50%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-muted">1. 업종 선택</small>
+                            <small class="text-primary fw-bold">2. 페르소나</small>
+                            <small class="text-muted">3. 설문</small>
+                            <small class="text-muted">4. 결과</small>
+                        </div>
+                    </div>
+
+                    <!-- Form Card -->
+                    <div class="form-card">
+                        <div class="text-center mb-4">
+                            <i data-feather="users" class="form-icon"></i>
+                            <h2 class="form-title">주요 고객 유형을 선택해주세요</h2>
+                            <p class="text-muted">
+                                <span id="industryName">선택한 업종</span>에서 가장 많은 비중을 차지하는 고객 유형을 선택해주세요.
+                            </p>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="persona-selection">
+                                <div class="persona-option mb-3" onclick="selectPersona('light_visitor')">
+                                    <input type="radio" name="persona" value="light_visitor" id="light_visitor" class="d-none">
+                                    <label for="light_visitor" class="persona-label">
+                                        <div class="persona-content">
+                                            <div class="persona-icon">
+                                                <i data-feather="wind"></i>
+                                            </div>
+                                            <div class="persona-text">
+                                                <h5>가벼운 방문자</h5>
+                                                <p class="mb-0 text-muted">우연히 들르는 고객, 즉흥적 방문</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="persona-option mb-3" onclick="selectPersona('problem_solver')">
+                                    <input type="radio" name="persona" value="problem_solver" id="problem_solver" class="d-none">
+                                    <label for="problem_solver" class="persona-label">
+                                        <div class="persona-content">
+                                            <div class="persona-icon">
+                                                <i data-feather="search"></i>
+                                            </div>
+                                            <div class="persona-text">
+                                                <h5>문제 해결형 고객</h5>
+                                                <p class="mb-0 text-muted">특정 니즈가 있는 고객, 목적성 있는 방문</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="persona-option mb-3" onclick="selectPersona('recommendation_based')">
+                                    <input type="radio" name="persona" value="recommendation_based" id="recommendation_based" class="d-none">
+                                    <label for="recommendation_based" class="persona-label">
+                                        <div class="persona-content">
+                                            <div class="persona-icon">
+                                                <i data-feather="message-circle"></i>
+                                            </div>
+                                            <div class="persona-text">
+                                                <h5>추천 기반 고객</h5>
+                                                <p class="mb-0 text-muted">입소문을 중시하는 고객, SNS/리뷰 확인</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="persona-option mb-3" onclick="selectPersona('loyal_customer')">
+                                    <input type="radio" name="persona" value="loyal_customer" id="loyal_customer" class="d-none">
+                                    <label for="loyal_customer" class="persona-label">
+                                        <div class="persona-content">
+                                            <div class="persona-icon">
+                                                <i data-feather="heart"></i>
+                                            </div>
+                                            <div class="persona-text">
+                                                <h5>충성 고객</h5>
+                                                <p class="mb-0 text-muted">브랜드에 애착이 있는 고객, 단골고객</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button id="personaNext" class="btn btn-gradient" onclick="nextToQuestions()" disabled>
+                                다음 단계
+                                <i data-feather="arrow-right" class="ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Questions -->
+        <div id="step-questions" class="step-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Progress Indicator -->
+                    <div class="progress-section mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-muted">1. 업종 선택</small>
+                            <small class="text-muted">2. 페르소나</small>
+                            <small class="text-primary fw-bold">3. 설문</small>
+                            <small class="text-muted">4. 결과</small>
+                        </div>
+                    </div>
+
+                    <!-- Form Card -->
+                    <div class="form-card">
+                        <div class="text-center mb-4">
+                            <i data-feather="help-circle" class="form-icon"></i>
+                            <h2 class="form-title">관여도 진단 설문</h2>
+                            <p class="text-muted">각 문항에 대해 귀하의 매장 상황에 가장 적합한 답변을 선택해주세요.</p>
+                        </div>
+
+                        <div id="questionsContainer">
+                            <!-- Questions will be generated here -->
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button id="submitAnswers" class="btn btn-gradient" onclick="submitAnswers()" disabled>
+                                결과 확인하기
+                                <i data-feather="arrow-right" class="ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Results -->
+        <div id="step-results" class="step-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <!-- Progress Indicator -->
+                    <div class="progress-section mb-4">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-muted">1. 업종 선택</small>
+                            <small class="text-muted">2. 페르소나</small>
+                            <small class="text-muted">3. 설문</small>
+                            <small class="text-primary fw-bold">4. 결과</small>
+                        </div>
+                    </div>
+
+                    <div id="resultsContainer">
+                        <!-- Results will be generated here -->
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn btn-gradient" onclick="showStep('intro')">
+                            <i data-feather="refresh-cw" class="me-2"></i>
+                            다시 진단하기
                         </button>
-                    `).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Application State
+        let appState = {
+            industry: null,
+            persona: null,
+            responses: {},
+            currentStep: 'intro'
+        };
+
+        // Industry and Persona Mappings
+        const INDUSTRY_NAMES = {
+            'restaurant': '음식점',
+            'cafe': '카페',
+            'fitness': '피트니스'
+        };
+
+        const PERSONA_NAMES = {
+            'light_visitor': '가벼운 방문자',
+            'problem_solver': '문제 해결형 고객',
+            'recommendation_based': '추천 기반 고객',
+            'loyal_customer': '충성 고객'
+        };
+
+        // Questions Data
+        const COMMON_QUESTIONS = [
+            '우리 매장은 고객의 즉각적인 만족을 충족시킨다',
+            '내 매장은 고객의 반복 방문을 유도하는 장치가 있다 (ex. 단골 시스템, 혜택 등)',
+            '고객은 나의 브랜드에 대해 차별성을 느낄 수 있다',
+            '내 매장은 온라인에서 신뢰를 줄 수 있는 후기/정보를 충분히 제공하고 있다',
+            '나의 상품/서비스는 고객 입장에서 가격 대비 가치가 충분히 높다',
+            '고객은 내 매장의 브랜드나 스토리에 관심을 가진다',
+            '고객은 우리 매장을 친구에게 추천하고 싶어할 것이다',
+            '내 매장은 업종 내 경쟁자들과 비교해 돋보이는 포인트가 명확하다',
+            '우리 매장은 고객의 니즈 변화에 민감하게 대응하고 있다',
+            '고객은 우리 매장에서 "자신에게 맞는 선택"을 하고 있다고 느낀다'
+        ];
+
+        const INDUSTRY_QUESTIONS = {
+            'restaurant': [
+                '고객은 식사 외의 경험(예: 공간, 이야기, 서비스)도 중요하게 여긴다',
+                '메뉴 구성은 고객 니즈에 맞게 최적화되어 있다',
+                '방문 전 검색이나 리뷰 확인이 고객의 행동에 영향을 준다',
+                '음식 외에도 리뷰, 사진, 블로그 콘텐츠가 우리 매장을 대표한다',
+                '우리 매장은 주변 다른 음식점과 구분되는 명확한 키워드가 있다'
+            ],
+            'cafe': [
+                '고객은 공간 분위기와 인테리어를 매우 중요하게 생각한다',
+                '커피나 음료 외에도 디저트, 포토존 등 복합적 니즈를 만족시킨다',
+                '고객은 SNS 공유나 인증을 위해 방문하는 성향이 있다',
+                '우리 매장의 이미지나 콘셉트는 뚜렷하고 일관성 있다',
+                '우리 카페는 경쟁사 대비 인스타그램 등에서 더 많은 반응을 유도한다'
+            ],
+            'fitness': [
+                '고객은 운동 목적에 맞는 맞춤형 지도를 기대한다',
+                '고객은 수업 이외에도 결과 측정, 상담 등 부가 서비스를 원한다',
+                '전문가로서의 신뢰와 커뮤니케이션 역량이 고객 유치에 영향을 준다',
+                '내 센터는 회원의 변화 과정을 명확히 시각화할 수 있다',
+                '우리는 고객의 운동 여정을 콘텐츠로 활용하고 있다'
+            ]
+        };
+
+        const LIKERT_OPTIONS = [
+            { value: 1, text: '전혀 그렇지 않다' },
+            { value: 2, text: '그렇지 않다' },
+            { value: 3, text: '보통이다' },
+            { value: 4, text: '그렇다' },
+            { value: 5, text: '매우 그렇다' }
+        ];
+
+        // Utility Functions
+        function showStep(stepName) {
+            console.log('showStep called with:', stepName);
+            
+            // Hide all steps
+            document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show target step
+            const targetStep = document.getElementById(`step-${stepName}`);
+            if (targetStep) {
+                targetStep.classList.add('active');
+                appState.currentStep = stepName;
+                
+
+                
+                // Update specific step content
+                if (stepName === 'questions') {
+                    generateQuestions();
+                } else if (stepName === 'results') {
+                    generateResults();
+                    // Scroll to top when results are shown
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                
+                console.log('Step shown:', stepName);
+            } else {
+                console.error('Step not found:', stepName);
+            }
+            
+            // Reinitialize Feather icons
+            feather.replace();
+        }
+
+        function restartApp() {
+            appState = {
+                industry: null,
+                persona: null,
+                responses: {},
+                currentStep: 'intro'
+            };
+            
+            // Reset form selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Reset buttons
+            const industryNext = document.getElementById('industryNext');
+            const personaNext = document.getElementById('personaNext');
+            const submitAnswers = document.getElementById('submitAnswers');
+            if (industryNext) industryNext.disabled = true;
+            if (personaNext) personaNext.disabled = true;
+            if (submitAnswers) submitAnswers.disabled = true;
+            
+            showStep('intro');
+        }
+
+        // Industry Selection
+        function selectIndustry(industry) {
+            appState.industry = industry;
+            
+            // Update radio button
+            document.getElementById(industry).checked = true;
+            
+            // Enable next button
+            document.getElementById('industryNext').disabled = false;
+            
+            console.log('Industry selected:', industry);
+        }
+
+        function nextToPersona() {
+            if (!appState.industry) {
+                alert('업종을 선택해주세요.');
+                return;
+            }
+            
+            // Update industry name in persona step
+            document.getElementById('industryName').textContent = INDUSTRY_NAMES[appState.industry];
+            
+            showStep('persona');
+        }
+
+        // Persona Selection
+        function selectPersona(persona) {
+            appState.persona = persona;
+            
+            // Update radio button
+            document.getElementById(persona).checked = true;
+            
+            // Enable next button
+            document.getElementById('personaNext').disabled = false;
+            
+            console.log('Persona selected:', persona);
+        }
+
+        function nextToQuestions() {
+            if (!appState.persona) {
+                alert('고객 페르소나를 선택해주세요.');
+                return;
+            }
+            
+            showStep('questions');
+        }
+
+        // Questions Generation
+        function generateQuestions() {
+            const container = document.getElementById('questionsContainer');
+            const allQuestions = [...COMMON_QUESTIONS, ...INDUSTRY_QUESTIONS[appState.industry]];
+            
+            let questionsHtml = '';
+            
+            allQuestions.forEach((question, index) => {
+                const questionId = `q${index + 1}`;
+                
+                questionsHtml += `
+                    <div class="question-card">
+                        <div class="question-number mb-2">
+                            <span class="badge bg-primary">${index + 1}</span>
+                        </div>
+                        <h6 class="question-text mb-3">${question}</h6>
+                        <div class="likert-scale">
+                            ${LIKERT_OPTIONS.map(option => `
+                                <div class="likert-option">
+                                    <input type="radio" id="${questionId}_${option.value}" name="${questionId}" value="${option.value}" onchange="updateAnswer('${questionId}', ${option.value})">
+                                    <label for="${questionId}_${option.value}">${option.text}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = questionsHtml;
+            
+            // Reinitialize icons
+            feather.replace();
+        }
+
+        function updateAnswer(questionId, value) {
+            appState.responses[questionId] = value;
+            
+            // Check if all questions are answered
+            const totalQuestions = COMMON_QUESTIONS.length + INDUSTRY_QUESTIONS[appState.industry].length;
+            const answeredQuestions = Object.keys(appState.responses).length;
+            
+            const submitButton = document.getElementById('submitAnswers');
+            if (submitButton && answeredQuestions === totalQuestions) {
+                submitButton.disabled = false;
+            }
+            
+            console.log('Answer updated:', questionId, value);
+        }
+
+        function submitAnswers() {
+            const totalQuestions = COMMON_QUESTIONS.length + INDUSTRY_QUESTIONS[appState.industry].length;
+            const answeredQuestions = Object.keys(appState.responses).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert('모든 문항에 답변해주세요.');
+                return;
+            }
+            
+            showStep('results');
+        }
+
+        // Results Generation
+        function generateResults() {
+            const container = document.getElementById('resultsContainer');
+            
+            // Calculate score
+            let totalScore = 0;
+            let questionCount = 0;
+            
+            // Common questions (weight 1.0)
+            for (let i = 1; i <= COMMON_QUESTIONS.length; i++) {
+                const answer = appState.responses[`q${i}`];
+                if (answer) {
+                    totalScore += answer * 1.0;
+                    questionCount++;
+                }
+            }
+            
+            // Industry-specific questions (weight 1.2)
+            for (let i = COMMON_QUESTIONS.length + 1; i <= COMMON_QUESTIONS.length + INDUSTRY_QUESTIONS[appState.industry].length; i++) {
+                const answer = appState.responses[`q${i}`];
+                if (answer) {
+                    totalScore += answer * 1.2;
+                    questionCount++;
+                }
+            }
+            
+            const score = Math.round((totalScore / (questionCount * 5)) * 100);
+            
+            // Determine engagement level
+            let level = '';
+            if (score >= 70) {
+                level = '고관여';
+            } else if (score >= 40) {
+                level = '중간관여';
+            } else {
+                level = '저관여';
+            }
+            
+            // Generate results HTML
+            container.innerHTML = `
+                <div class="results-card">
+                    <div class="score-display">
+                        <div class="score-number">${score}</div>
+                        <div class="score-level">${level} 고객</div>
+                        <p class="mt-3 mb-0">귀하의 매장은 <strong>${level}</strong> 수준의 고객 관여도를 보유하고 있습니다.</p>
+                    </div>
+                    
+                    <div class="strategy-section">
+                        <h4 class="mb-4">
+                            <i data-feather="lightbulb" class="me-2"></i>
+                            맞춤형 마케팅 전략
+                        </h4>
+                        
+                        <div class="strategy-channels">
+                            <div class="strategy-channel">
+                                <div class="strategy-header">
+                                    <i data-feather="target" class="strategy-icon"></i>
+                                    <div>
+                                        <h5 class="mb-1">고객 관여도 향상 전략</h5>
+                                        <p class="text-muted mb-0">현재 ${level} 수준에서 더 높은 관여도로 발전시키기 위한 방법</p>
+                                    </div>
+                                </div>
+                                <div class="strategy-content">
+                                    ${level === '고관여' ? 
+                                        '• VIP 고객 관리 시스템 구축<br>• 브랜드 커뮤니티 활성화<br>• 개인화된 서비스 제공<br>• 장기적 관계 유지 전략' :
+                                        level === '중간관여' ?
+                                        '• 고객 참여 이벤트 기획<br>• 브랜드 스토리 강화<br>• 개인맞춤 서비스 도입<br>• 고객 피드백 시스템 구축' :
+                                        '• 접근 장벽 낮추기<br>• 즉시 만족감 제공<br>• 간단한 혜택 시스템<br>• 친근한 분위기 조성'
+                                    }
+                                </div>
+                            </div>
+                            
+                            <div class="strategy-channel">
+                                <div class="strategy-header">
+                                    <i data-feather="users" class="strategy-icon"></i>
+                                    <div>
+                                        <h5 class="mb-1">${PERSONA_NAMES[appState.persona]} 맞춤 전략</h5>
+                                        <p class="text-muted mb-0">선택하신 고객 유형에 특화된 마케팅 접근법</p>
+                                    </div>
+                                </div>
+                                <div class="strategy-content">
+                                    ${appState.persona === 'light_visitor' ?
+                                        '• 시각적 어필 강화<br>• 즉시 혜택 제공<br>• 간단한 메뉴 구성<br>• 편리한 접근성 확보' :
+                                        appState.persona === 'problem_solver' ?
+                                        '• 명확한 솔루션 제시<br>• 전문성 어필<br>• 맞춤 상담 서비스<br>• 결과 중심 커뮤니케이션' :
+                                        appState.persona === 'recommendation_based' ?
+                                        '• SNS 마케팅 강화<br>• 인플루언서 협업<br>• 리뷰 관리 시스템<br>• 공유 인센티브 제공' :
+                                        '• 회원 혜택 확대<br>• 개인화 서비스<br>• 브랜드 스토리 공유<br>• 커뮤니티 구축'
+                                    }
+                                </div>
+                            </div>
+                            
+                            <div class="strategy-channel">
+                                <div class="strategy-header">
+                                    <i data-feather="briefcase" class="strategy-icon"></i>
+                                    <div>
+                                        <h5 class="mb-1">${INDUSTRY_NAMES[appState.industry]} 업종별 전략</h5>
+                                        <p class="text-muted mb-0">업종 특성을 반영한 전문적 마케팅 방향</p>
+                                    </div>
+                                </div>
+                                <div class="strategy-content">
+                                    ${appState.industry === 'restaurant' ?
+                                        '• 메뉴 스토리텔링<br>• 셰프 브랜딩<br>• 음식 사진 최적화<br>• 예약 시스템 개선' :
+                                        appState.industry === 'cafe' ?
+                                        '• 인테리어 포토존<br>• 시그니처 메뉴 개발<br>• SNS 이벤트 기획<br>• 분위기 마케팅' :
+                                        '• 트레이너 전문성 어필<br>• 성과 가시화 시스템<br>• 맞춤 프로그램 제공<br>• 건강 관리 콘텐츠'
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             `;
-            questionsContainer.appendChild(questionDiv);
-        });
-        
-        // 옵션 버튼 이벤트 리스너 추가
-        document.querySelectorAll('.option-btn').forEach(btn => {
-            btn.addEventListener('click', selectAnswer);
-        });
-            }
-
-// 답변 선택
-            function selectAnswer(event) {
-        const questionIndex = parseInt(event.target.dataset.question);
-        const value = parseInt(event.target.dataset.value);
-        
-        // 같은 질문의 다른 버튼들 선택 해제
-        const questionContainer = event.target.closest('.question-container');
-        questionContainer.querySelectorAll('.option-btn').forEach(btn => {
-            btn.classList.remove('selected');
-        });
-        
-        // 현재 버튼 선택
-        event.target.classList.add('selected');
-        
-        // 답변 저장
-        answers[questionIndex] = value;
-        
-        // 진행 상황 업데이트
-        updateProgress();
-            }
-
-// 진행 상황 업데이트
-            function updateProgress() {
-        const totalQuestions = currentQuestions.length;
-        const answeredCount = Object.keys(answers).length;
-        const progressPercentage = (answeredCount / totalQuestions) * 100;
-        
-        document.getElementById('progressFill').style.width = `${progressPercentage}%`;
-        document.getElementById('progressText').textContent = `${answeredCount}/${totalQuestions} 문항 완료`;
-        
-        // 모든 질문에 답변했으면 제출 버튼 활성화
-        const submitBtn = document.getElementById('submitBtn');
-        if (answeredCount === totalQuestions) {
-            submitBtn.classList.add('active');
-        } else {
-            submitBtn.classList.remove('active');
-        }
-            }
-
-// 결과 표시
-            function showResults() {
-        if (Object.keys(answers).length !== currentQuestions.length) {
-            alert('모든 문항에 답변해주세요.');
-            return;
-        }
-
-        const totalScore = Object.values(answers).reduce((sum, score) => sum + score, 0);
-        const maxScore = currentQuestions.length * 5;
-        const percentage = Math.round((totalScore / maxScore) * 100);
-        
-        // 점수별 등급 결정
-        const gradeIndex = getGradeByScore(percentage);
-        const grade = detailedGradeInfo[gradeIndex];
-        
-        // 답변 기반 개인화 분석 수행
-        const personalizedAnalysis = analyzeAnswers(answers, currentQuestions);
-        
-        // 결과 섹션 업데이트
-        document.getElementById('finalScore').textContent = percentage;
-        document.getElementById('finalGrade').textContent = grade.title;
-        document.getElementById('finalGrade').className = `grade-badge ${grade.class}`;
-        
-        // 등급 진행상황 시각화 업데이트
-        updateGradeProgress(gradeIndex);
-        
-        // 현재 상태 분석 업데이트
-        document.getElementById('statusAnalysis').textContent = grade.status;
-        
-        // 핵심 개선 포인트 업데이트 (중복 제거)
-        const improvementPoints = document.getElementById('improvementPoints');
-        improvementPoints.innerHTML = '';
-        
-        // 개인화 분석 결과가 있으면 우선 사용, 없으면 등급별 기본 메시지 사용
-        let finalImprovements = [];
-        if (personalizedAnalysis.improvements.length > 0) {
-            finalImprovements = [...new Set(personalizedAnalysis.improvements)]; // 중복 제거
-        } else {
-            finalImprovements = grade.improvements.slice(0, 5); // 최대 5개
-        }
             
-        finalImprovements.forEach(improvement => {
-            const li = document.createElement('li');
-            li.textContent = improvement;
-            improvementPoints.appendChild(li);
-        });
-        
-        // 추천 전략 방향 업데이트 (중복 제거)
-        const actionPlan = document.getElementById('actionPlan');
-        actionPlan.innerHTML = '';
-        
-        // 개인화 분석 결과가 있으면 우선 사용, 없으면 등급별 기본 메시지 사용
-        let finalStrategies = [];
-        if (personalizedAnalysis.strategies.length > 0) {
-            finalStrategies = [...new Set(personalizedAnalysis.strategies)]; // 중복 제거
-        } else {
-            finalStrategies = grade.actions.slice(0, 5); // 최대 5개
-        }
+            // Reinitialize icons
+            feather.replace();
             
-        finalStrategies.forEach(action => {
-            const li = document.createElement('li');
-            li.textContent = action;
-            actionPlan.appendChild(li);
-        });
-        
-        // 섹션 전환
-        document.getElementById('surveySection').style.display = 'none';
-        document.getElementById('resultsSection').style.display = 'block';
-            }
+            console.log('Results generated:', { score, level, industry: appState.industry, persona: appState.persona });
+        }
 
-// 등급 진행상황 시각화 업데이트
-            function updateGradeProgress(currentGradeIndex) {
-        const gradeSteps = document.querySelectorAll('.grade-step');
-        
-        gradeSteps.forEach((step, index) => {
-            const stepGrade = parseInt(step.dataset.grade);
+        // Initialize app on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing app');
             
-            // 모든 클래스 초기화
-            step.classList.remove('current', 'completed');
+            // Initialize Feather icons
+            feather.replace();
             
-            if (stepGrade < currentGradeIndex) {
-                step.classList.add('completed');
-            } else if (stepGrade === currentGradeIndex) {
-                step.classList.add('current');
-            }
+            // Show intro step by default
+            showStep('intro');
         });
-            }
 
-// 설문 재시작
-            function restartSurvey() {
-        // 데이터 초기화
-        selectedIndustry = '';
-        currentQuestions = [];
-        answers = {};
-        
-        // UI 초기화
-        document.querySelectorAll('.industry-btn').forEach(btn => btn.classList.remove('active'));
-        document.getElementById('industrySelection').classList.remove('hidden');
-        document.getElementById('progressSection').classList.add('hidden');
-        document.getElementById('submitSection').classList.add('hidden');
-        document.getElementById('questionsContainer').innerHTML = '';
-        document.getElementById('progressFill').style.width = '0%';
-        document.getElementById('progressText').textContent = '0/25 문항 완료';
-        document.getElementById('submitBtn').classList.remove('active');
-        
-        // 섹션 전환
-        document.getElementById('surveySection').style.display = 'block';
-        document.getElementById('resultsSection').style.display = 'none';
-            }
-
-// 결과 공유
-            function shareResults() {
-        const shareText = `시장 독점 진단 설문을 해보세요!\n\n25개 문항으로 우리 매장의 사업 경쟁력을 진단합니다.`;
-        const surveyUrl = 'https://essenpeak.com/offline-business-growth-tools/market-dominance-diagnostic';
-        const fullShareText = `${shareText}\n${surveyUrl}`;
-        
-        if (navigator.share) {
-            navigator.share({
-                title: '시장 독점 진단 설문',
-                text: shareText,
-                url: surveyUrl
-            }).catch(err => {
-                // Web Share API 실패 시 클립보드로 대체
-                fallbackCopyTextToClipboard(fullShareText);
-            });
-        } else {
-            // 클립보드 복사 시도
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(fullShareText).then(() => {
-                    showShareModal('설문 링크가 클립보드에 복사되었습니다!');
-                }).catch(() => {
-                    fallbackCopyTextToClipboard(fullShareText);
-                });
-            } else {
-                fallbackCopyTextToClipboard(fullShareText);
-            }
-        }
-            }
-
-            function fallbackCopyTextToClipboard(text) {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        
-        try {
-            document.execCommand('copy');
-            showShareModal('설문 링크가 클립보드에 복사되었습니다!');
-        } catch (err) {
-            showShareModal(`링크를 복사하세요:\n${text}`);
-        } finally {
-            document.body.removeChild(textArea);
-        }
-            }
-
-            function showShareModal(text) {
-        // 기존 모달이 있으면 제거
-        const existingModal = document.getElementById('shareModal');
-        if (existingModal) {
-            existingModal.remove();
-        }
-        
-        // 모달 생성
-        const modal = document.createElement('div');
-        modal.id = 'shareModal';
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        `;
-        
-        const modalContent = document.createElement('div');
-        modalContent.style.cssText = `
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        `;
-        
-        modalContent.innerHTML = `
-            <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 1.5; white-space: pre-line;">${text}</p>
-            <button onclick="document.getElementById('shareModal').remove()" 
-                    style="background: #7C3AED; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-size: 14px; cursor: pointer;">
-                확인
-            </button>
-        `;
-        
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-        
-        // 3초 후 자동 닫기
-        setTimeout(() => {
-            if (document.getElementById('shareModal')) {
-                modal.remove();
-            }
-        }, 3000);
-            }
-
-// 결과 다운로드
-            function downloadResults() {
-        const score = document.getElementById('finalScore').textContent;
-        const grade = document.getElementById('finalGrade').textContent;
-        const status = document.getElementById('statusAnalysis').textContent;
-        
-        const improvements = Array.from(document.getElementById('improvementPoints').children)
-            .map(li => `• ${li.textContent}`).join('\n');
-        
-        const strategies = Array.from(document.getElementById('actionPlan').children)
-            .map(li => `• ${li.textContent}`).join('\n');
-        
-        const resultText = `
-시장 독점 진단 결과
-==================
-
-점수: ${score}점
-등급: ${grade}
-
-현재 상태 분석:
-${status}
-
-핵심 개선 포인트:
-${improvements}
-
-추천 전략 방향:
-${strategies}
-
-진단일: ${new Date().toLocaleDateString('ko-KR')}
-        `.trim();
-        
-        const blob = new Blob([resultText], { type: 'text/plain;charset=utf-8' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = '시장독점진단결과.txt';
-        link.click();
-            }
-
-            // 전역 함수로 등록
-            window.selectIndustry = selectIndustry;
-            window.showResults = showResults;
-            window.restartSurvey = restartSurvey;
-            window.shareResults = shareResults;
-            window.downloadResults = downloadResults;
-        </script>
+        // Handle browser back/forward
+        window.addEventListener('popstate', function() {
+            showStep('intro');
+        });
+    </script>
 </body>
 </html>
