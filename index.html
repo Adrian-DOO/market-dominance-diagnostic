@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>오프라인 매장 고객 관여도 진단 도구</title>
+    <title>고객 관여도 진단 도구</title>
     
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,15 +40,6 @@
             background: transparent;
             line-height: 1.6;
             color: #333;
-            margin: 0;
-            padding: 10px;
-            min-height: 100vh;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         /* Navbar */
@@ -70,7 +61,6 @@
         }
 
         .btn-gradient:hover {
-            background:#5B51D8
             transform: translateY(-2px);
             box-shadow: var(--shadow-medium);
             color: white;
@@ -82,7 +72,7 @@
         }
 
         .hero-title {
-            font-size: 1.8rem;
+            font-size: 2.4rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--primary-color);
@@ -96,15 +86,15 @@
         }
 
         .hero-feather {
-            width: 40px;
-            height: 40px;
+            width: 80px;
+            height: 80px;
             stroke: var(--primary-color);
             stroke-width: 1.5;
         }
 
         /* Process Steps */
         .process-step {
-            padding: 20px 20px;
+            padding: 30px 20px;
             background: rgba(255, 255, 255, 0.7);
             border-radius: 15px;
             box-shadow: var(--shadow-light);
@@ -133,8 +123,8 @@
 
         .step-number {
             display: inline-block;
-            width: 40px;
-            height: 40px;
+            width: 24px;
+            height: 24px;
             line-height: 36px;
             border-radius: 50%;
             background: var(--primary-color);
@@ -145,8 +135,8 @@
         }
 
         .step-icon {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             stroke: var(--primary-color);
             flex-shrink: 0;
         }
@@ -249,8 +239,8 @@
 
         .industry-icon, .persona-icon {
             flex-shrink: 0;
-            width: 48px;
-            height: 48px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -258,8 +248,8 @@
         }
 
         .industry-icon i, .persona-icon i {
-            width: 24px;
-            height: 24px;
+            width: 40px;
+            height: 40px;
         }
 
         /* Question Cards */
@@ -296,7 +286,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: #f8fafc;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
 
         .likert-option label:hover {
@@ -329,13 +319,13 @@
         }
 
         .score-number {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 700;
             color: var(--primary-color);
         }
 
         .score-level {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary-color);
             margin-top: 10px;
@@ -356,14 +346,26 @@
         }
 
         .strategy-icon {
-            width: 24px;
-            height: 24px;
+            width: 40px;
+            height: 40px;
             stroke: var(--primary-color);
             margin-right: 15px;
         }
 
-        /* Additional Mobile Responsiveness */
+        /* Mobile Responsiveness */
         @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+
             .likert-scale {
                 flex-direction: column;
                 gap: 8px;
@@ -371,7 +373,7 @@
 
             .likert-option label {
                 padding: 15px;
-                font-size: 0.8rem;
+                font-size: 1rem;
             }
 
             .industry-content, .persona-content {
@@ -383,32 +385,6 @@
                 margin-right: 0;
                 margin-bottom: 10px;
             }
-            
-            .row.g-4 {
-                gap: 1rem !important;
-            }
-        }
-
-        /* Main Container */
-        .main-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 20px 10px;
-            box-sizing: border-box;
-        }
-
-        .content-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 1000px;
-            min-height: calc(100vh - 40px);
-            box-sizing: border-box;
-            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         /* Step visibility */
@@ -420,81 +396,14 @@
             display: block;
         }
 
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            .main-wrapper {
-                padding: 10px 5px;
-            }
-            
-            .content-container {
-                padding: 20px;
-                border-radius: 15px;
-                min-height: calc(100vh - 20px);
-            }
-            
-            .hero-title {
-                font-size: 1.4rem !important;
-            }
-            
-            .hero-subtitle {
-                font-size: 0.8rem !important;
-            }
-            
-            .process-step {
-                height: 180px !important;
-                min-height: 180px !important;
-                max-height: 180px !important;
-                padding: 20px 15px !important;
-            }
-            
-            .form-card {
-                padding: 25px !important;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .content-container {
-                padding: 15px;
-                border-radius: 10px;
-            }
-            
-            .process-step {
-                height: 160px !important;
-                min-height: 160px !important;
-                max-height: 160px !important;
-                padding: 15px 10px !important;
-            }
-            
-            .process-step h5 {
-                font-size: 0.8rem !important;
-            }
-            
-            .process-step p {
-                font-size: 0.6rem !important;
-            }
-            
-            .step-number {
-                width: 35px !important;
-                height: 35px !important;
-                line-height: 31px !important;
-                font-size: 0.7rem !important;
-            }
-            
-            .step-icon {
-                width: 20px !important;
-                height: 20px !important;
-            }
-        }
-
 
     </style>
 </head>
 <body>
 
 
-    <!-- Main Content Container -->
-    <div class="main-wrapper">
-        <main class="content-container">
+    <!-- Main Content -->
+    <main class="container my-5">
         <!-- Step 1: Introduction -->
         <div id="step-intro" class="step-content active">
             <div class="row justify-content-center">
@@ -504,7 +413,7 @@
                         <div class="hero-icon mb-4">
                             <i data-feather="target" class="hero-feather"></i>
                         </div>
-                        <h1 class="hero-title mb-4">고객 관여도 진단 도구</h1>
+                        <h1 class="hero-title mb-4">오프라인 매장 고객 관여도 진단 도구</h1>
                         <p class="hero-subtitle mb-4">
                             고객의 구매 행동을 분석하고 맞춤형 마케팅 전략을 제안해드립니다.<br>
                             업종별 특성을 반영한 전문적인 진단으로 효과적인 마케팅 방향을 찾아보세요.
@@ -829,8 +738,7 @@
                 </div>
             </div>
         </div>
-        </main>
-    </div>
+    </main>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -927,9 +835,7 @@
                 } else if (stepName === 'results') {
                     generateResults();
                     // Scroll to top when results are shown
-                    setTimeout(() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }, 100);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
                 
                 console.log('Step shown:', stepName);
@@ -1192,8 +1098,6 @@
             
             console.log('Results generated:', { score, level, industry: appState.industry, persona: appState.persona });
         }
-
-
 
         // Initialize app on page load
         document.addEventListener('DOMContentLoaded', function() {
