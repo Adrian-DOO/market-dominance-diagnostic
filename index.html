@@ -12,15 +12,17 @@
             }
 
             body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                letter-spacing: -0.04em
                 min-height: 100vh;
                 padding: 30px 15px;
                 margin: 0;
             }
 
             .container {
-                max-width: 800px;
+                max-width: 1200px;
                 margin: 0 auto;
+                padding: 0px 15px 0px 15px
             }
 
             .survey-section, .results-section {
@@ -48,7 +50,7 @@
 
             .header h1 {
                 color: #405DE6;
-                font-size: 32px;
+                font-size: 28px;
                 font-weight: 800;
                 margin-bottom: 15px;
                 background: linear-gradient(135deg, #405DE6, #5B51D8);
@@ -178,7 +180,7 @@
             }
 
             .example-title {
-                color: #405DE6;
+                color: #1e293b;
                 font-size: 14px;
                 font-weight: 600;
                 margin-bottom: 10px;
@@ -192,7 +194,7 @@
 
             .example-wrong {
                 color: #dc2626;
-                font-size: 14px;
+                font-size: 12px;
                 padding: 6px 10px;
                 background: #fef2f2;
                 border-radius: 6px;
@@ -201,11 +203,11 @@
 
             .example-right {
                 color: #059669;
-                font-size: 14px;
+                font-size: 12px;
                 padding: 6px 10px;
                 background: #f0fdf4;
                 border-radius: 6px;
-                border-left: 3px solid #059669;
+                border-left: 2px solid #059669;
             }
 
             .options-grid {
@@ -216,12 +218,12 @@
 
             .option-btn {
                 padding: 12px 8px;
-                border: 2px solid #e2e8f0;
+                border: 1px solid #e2e8f0;
                 background: white;
                 border-radius: 8px;
                 cursor: pointer;
                 transition: all 0.2s ease;
-                font-size: 13px;
+                font-size: 14px;
                 text-align: center;
                 line-height: 1.2;
                 min-height: 60px;
@@ -241,13 +243,13 @@
                 border-color: #405DE6;
                 background: #405DE6;
                 color: white;
+                font-weight: 600;
             }
 
             .submit-section {
                 text-align: center;
                 margin-top: 40px;
                 padding-top: 30px;
-                border-top: 2px solid #e2e8f0;
             }
 
             .submit-btn {
@@ -280,8 +282,8 @@
             }
 
             .score-circle {
-                width: 150px;
-                height: 150px;
+                width: 100px;
+                height: 100px;
                 border-radius: 50%;
                 background: linear-gradient(135deg, #405DE6, #5B51D8);
                 display: flex;
@@ -293,13 +295,13 @@
 
             .score-number {
                 color: white;
-                font-size: 42px;
+                font-size: 36px;
                 font-weight: 800;
             }
 
             .grade-badge {
                 display: inline-block;
-                padding: 12px 25px;
+                padding: 12px 24px;
                 border-radius: 25px;
                 font-size: 18px;
                 font-weight: 700;
@@ -349,13 +351,13 @@
                 align-items: center;
                 justify-content: center;
                 font-weight: 700;
-                font-size: 14px;
+                font-size: 16px;
                 transition: all 0.3s ease;
                 margin-bottom: 8px;
             }
 
             .grade-step-label {
-                font-size: 12px;
+                font-size: 14px;
                 text-align: center;
                 color: #64748b;
                 font-weight: 500;
@@ -368,7 +370,7 @@
             }
 
             .grade-step.current .grade-step-circle {
-                background: #a855f7;
+                background: #5B51D8;
                 color: white;
                 transform: scale(1.2);
                 box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.3);
@@ -396,7 +398,7 @@
 
             .analysis-title {
                 color: #1e293b;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 700;
                 margin-bottom: 20px;
                 display: flex;
@@ -406,8 +408,8 @@
 
             .status-text {
                 color: #64748b;
-                font-size: 16px;
-                line-height: 1.7;
+                font-size: 14px;
+                line-height: 1.6;
                 margin-bottom: 20px;
             }
 
@@ -418,7 +420,7 @@
 
             .improvement-list li, .action-list li {
                 background: white;
-                padding: 15px;
+                padding: 14px;
                 border-radius: 10px;
                 margin-bottom: 10px;
                 border-left: 4px solid #405DE6;
@@ -435,14 +437,14 @@
 
             .cta-title {
                 color: #1e293b;
-                font-size: 24px;
+                font-size: 18px;
                 font-weight: 700;
                 margin-bottom: 15px;
             }
 
             .cta-description {
                 color: #64748b;
-                font-size: 16px;
+                font-size: 14px;
                 margin-bottom: 25px;
                 line-height: 1.6;
             }
@@ -556,7 +558,7 @@
                 }
 
                 .question-text {
-                    font-size: 16px;
+                    font-size: 14px;
                     margin-bottom: 15px;
                 }
 
@@ -592,7 +594,7 @@
                 }
 
                 .score-number {
-                    font-size: 32px;
+                    font-size: 28px;
                 }
             }
         </style>
@@ -692,13 +694,13 @@
 
                 <div class="result-controls">
                     <button class="control-btn" onclick="restartSurvey()">
-                        🔄 다시 진단하기
+                        다시 진단하기
                     </button>
                     <button class="control-btn" onclick="shareResults()">
-                        📤 결과 공유하기
+                        결과 공유하기
                     </button>
                     <button class="control-btn" onclick="downloadResults()">
-                        💾 결과 다운로드
+                        결과 다운로드
                     </button>
                 </div>
             </div>
